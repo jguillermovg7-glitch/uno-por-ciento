@@ -23,11 +23,8 @@ export default function Home() {
 
       {/* NAV */}
       <nav className="flex justify-between items-center px-4 md:px-12 py-4 border-b border-[#D8E3E1] sticky top-0 bg-white z-50">
-        <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-[#0B1418] flex items-center justify-center shrink-0">
-            <span className="text-[#3DDC84] font-mono font-bold text-[13px]">1%</span>
-          </div>
-          <span className="font-display font-bold text-[17px] whitespace-nowrap">Uno por Ciento</span>
+        <div className="flex items-center">
+          <img src="/logo-uno.png" alt="Uno por Ciento" style={{ height: "34px", width: "auto" }} />
         </div>
         <div className="hidden md:flex gap-8 items-center">
           <a href="#como-funciona" className="text-sm text-[#0B1418]/70 no-underline">Cómo funciona</a>
