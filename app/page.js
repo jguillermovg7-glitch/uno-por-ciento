@@ -18,203 +18,192 @@ export default function Home() {
     requestAnimationFrame(tick);
   }, []);
 
-  const ink = "#0B1418";
-  const teal = "#0E7C7B";
-  const live = "#3DDC84";
-  const surface = "#EDF2F1";
-  const border = "#D8E3E1";
-
   return (
-    <main style={{ fontFamily: "'Inter', sans-serif", background: "#FFFFFF", color: ink, minHeight: "100vh" }}>
+    <main className="font-sans bg-white text-[#0B1418] min-h-screen overflow-x-hidden">
 
       {/* NAV */}
-      <nav style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "20px 48px", borderBottom: `0.5px solid ${border}`, position: "sticky", top: 0, background: "#FFFFFF", zIndex: 50 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <div style={{ width: "28px", height: "28px", borderRadius: "8px", background: ink, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <span style={{ color: live, fontFamily: "'JetBrains Mono', monospace", fontWeight: 700, fontSize: "13px" }}>1%</span>
+      <nav className="flex justify-between items-center px-4 md:px-12 py-4 border-b border-[#D8E3E1] sticky top-0 bg-white z-50">
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-lg bg-[#0B1418] flex items-center justify-center shrink-0">
+            <span className="text-[#3DDC84] font-mono font-bold text-[13px]">1%</span>
           </div>
-          <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: "17px" }}>Uno por Ciento</span>
+          <span className="font-display font-bold text-[17px] whitespace-nowrap">Uno por Ciento</span>
         </div>
-        <div style={{ display: "flex", gap: "32px", alignItems: "center" }}>
-          <a href="#como-funciona" style={{ fontSize: "14px", color: ink, textDecoration: "none", opacity: 0.7 }}>Cómo funciona</a>
-          <a href="#precios" style={{ fontSize: "14px", color: ink, textDecoration: "none", opacity: 0.7 }}>Precios</a>
-          <a href="#faq" style={{ fontSize: "14px", color: ink, textDecoration: "none", opacity: 0.7 }}>FAQ</a>
-          <a href="/login" style={{ fontSize: "14px", color: ink, textDecoration: "none", opacity: 0.7 }}>Iniciar sesión</a>
-          <a href="#demo" style={{ background: ink, color: "#fff", padding: "10px 20px", borderRadius: "8px", fontSize: "14px", textDecoration: "none", fontWeight: 500 }}>
-            Ver demo gratis
-          </a>
+        <div className="hidden md:flex gap-8 items-center">
+          <a href="#como-funciona" className="text-sm text-[#0B1418]/70 no-underline">Cómo funciona</a>
+          <a href="#precios" className="text-sm text-[#0B1418]/70 no-underline">Precios</a>
+          <a href="#faq" className="text-sm text-[#0B1418]/70 no-underline">FAQ</a>
+          <a href="/login" className="text-sm text-[#0B1418]/70 no-underline">Iniciar sesión</a>
+          <a href="#demo" className="bg-[#0B1418] text-white px-5 py-2.5 rounded-lg text-sm no-underline font-medium">Ver demo gratis</a>
         </div>
+        <a href="#demo" className="md:hidden bg-[#0B1418] text-white px-4 py-2 rounded-lg text-[13px] no-underline font-medium whitespace-nowrap">Ver demo</a>
       </nav>
 
       {/* HERO */}
-      <section style={{ padding: "80px 48px 60px", display: "flex", gap: "64px", alignItems: "center", maxWidth: "1200px", margin: "0 auto" }}>
-        <div style={{ flex: "1 1 460px" }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: surface, padding: "6px 14px", borderRadius: "100px", marginBottom: "24px" }}>
-            <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: live }}></span>
-            <span style={{ fontSize: "12px", fontFamily: "'JetBrains Mono', monospace", color: teal }}>Solo el 1% de doctores aparece bien en Google</span>
+      <section className="px-4 md:px-12 py-12 md:py-20 flex flex-col md:flex-row gap-10 md:gap-16 items-center max-w-[1200px] mx-auto">
+        <div className="flex-1 w-full">
+          <div className="inline-flex items-center gap-2 bg-[#EDF2F1] px-3.5 py-1.5 rounded-full mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#3DDC84] shrink-0"></span>
+            <span className="text-[11px] md:text-xs font-mono text-[#0E7C7B]">Solo el 1% de doctores aparece bien en Google</span>
           </div>
-          <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "48px", fontWeight: 700, lineHeight: 1.1, marginBottom: "20px" }}>
+          <h1 className="font-display font-bold text-[34px] md:text-[48px] leading-[1.1] mb-5">
             Sé parte del<br />
-            <span style={{ color: teal }}>1% de doctores</span><br />
+            <span className="text-[#0E7C7B]">1% de doctores</span><br />
             que sí aparece.
           </h1>
-          <p style={{ fontSize: "17px", color: ink, opacity: 0.65, lineHeight: 1.6, marginBottom: "36px", maxWidth: "420px" }}>
+          <p className="text-base md:text-[17px] text-[#0B1418]/65 leading-relaxed mb-8 max-w-[420px]">
             Tu sitio web profesional, optimizado para Google y búsquedas con IA. Configurado una vez, funcionando para siempre.
           </p>
-          <div style={{ display: "flex", gap: "12px" }}>
-            <a href="#demo" style={{ background: ink, color: "#fff", padding: "14px 28px", borderRadius: "8px", fontSize: "15px", textDecoration: "none", fontWeight: 500 }}>
-              Ver mi sitio gratis →
-            </a>
-            <a href="#precios" style={{ border: `1px solid ${border}`, color: ink, padding: "14px 28px", borderRadius: "8px", fontSize: "15px", textDecoration: "none", fontWeight: 500 }}>
-              Ver precios
-            </a>
+          <div className="flex flex-wrap gap-3">
+            <a href="#demo" className="bg-[#0B1418] text-white px-6 py-3.5 rounded-lg text-[15px] no-underline font-medium">Ver mi sitio gratis →</a>
+            <a href="#precios" className="border border-[#D8E3E1] text-[#0B1418] px-6 py-3.5 rounded-lg text-[15px] no-underline font-medium">Ver precios</a>
           </div>
         </div>
 
         {/* MINI DASHBOARD LIVE */}
-        <div style={{ flex: "1 1 420px", background: "#fff", border: `0.5px solid ${border}`, borderRadius: "16px", padding: "24px", boxShadow: "0 1px 2px rgba(0,0,0,0.04)" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
-            <span style={{ fontSize: "13px", fontWeight: 500, opacity: 0.6 }}>Visibilidad en Google</span>
-            <span style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "12px", color: live, fontFamily: "'JetBrains Mono', monospace" }}>
-              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: live }}></span> en vivo
+        <div className="flex-1 w-full max-w-full bg-white border border-[#D8E3E1] rounded-2xl p-5 md:p-6 shadow-sm">
+          <div className="flex justify-between items-center mb-5">
+            <span className="text-[13px] font-medium text-[#0B1418]/60">Visibilidad en Google</span>
+            <span className="flex items-center gap-1.5 text-xs text-[#3DDC84] font-mono whitespace-nowrap">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3DDC84] shrink-0"></span> en vivo
             </span>
           </div>
-          <div style={{ display: "flex", alignItems: "baseline", gap: "8px", marginBottom: "8px" }}>
-            <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "44px", fontWeight: 700, color: ink }}>{pct}</span>
-            <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "20px", color: teal }}>%</span>
+          <div className="flex items-baseline gap-2 mb-2">
+            <span className="font-mono text-[40px] md:text-[44px] font-bold text-[#0B1418]">{pct}</span>
+            <span className="font-mono text-xl text-[#0E7C7B]">%</span>
           </div>
-          <div style={{ width: "100%", height: "8px", background: surface, borderRadius: "100px", overflow: "hidden", marginBottom: "24px" }}>
-            <div style={{ width: `${pct}%`, height: "100%", background: teal, borderRadius: "100px", transition: "width 0.1s linear" }}></div>
+          <div className="w-full h-2 bg-[#EDF2F1] rounded-full overflow-hidden mb-6">
+            <div className="h-full bg-[#0E7C7B] rounded-full transition-all duration-100" style={{ width: `${pct}%` }}></div>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-            <div style={{ background: surface, borderRadius: "10px", padding: "14px" }}>
-              <p style={{ fontSize: "11px", opacity: 0.55, marginBottom: "6px" }}>Visitas este mes</p>
-              <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "20px", fontWeight: 700 }}>342</p>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-[#EDF2F1] rounded-[10px] p-3.5">
+              <p className="text-[11px] text-[#0B1418]/55 mb-1.5">Visitas este mes</p>
+              <p className="font-mono text-xl font-bold">342</p>
             </div>
-            <div style={{ background: surface, borderRadius: "10px", padding: "14px" }}>
-              <p style={{ fontSize: "11px", opacity: 0.55, marginBottom: "6px" }}>Mensajes WhatsApp</p>
-              <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "20px", fontWeight: 700, color: teal }}>27</p>
+            <div className="bg-[#EDF2F1] rounded-[10px] p-3.5">
+              <p className="text-[11px] text-[#0B1418]/55 mb-1.5">Mensajes WhatsApp</p>
+              <p className="font-mono text-xl font-bold text-[#0E7C7B]">27</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* LOGOS / TRUST */}
-      <section style={{ padding: "32px 48px", borderTop: `0.5px solid ${border}`, borderBottom: `0.5px solid ${border}`, background: surface }}>
-        <p style={{ textAlign: "center", fontSize: "12px", opacity: 0.5, fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.05em" }}>
+      <section className="px-4 md:px-12 py-7 border-t border-b border-[#D8E3E1] bg-[#EDF2F1]">
+        <p className="text-center text-[10px] md:text-xs text-[#0B1418]/50 font-mono tracking-wide leading-relaxed">
           NEURÓLOGOS · DENTISTAS · PODÓLOGOS · PSICÓLOGOS · DERMATÓLOGOS · PEDIATRAS
         </p>
       </section>
 
       {/* COMO FUNCIONA */}
-      <section id="como-funciona" style={{ padding: "80px 48px", maxWidth: "1100px", margin: "0 auto" }}>
-        <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "13px", color: teal, marginBottom: "12px" }}>Cómo funciona</p>
-        <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "32px", fontWeight: 700, marginBottom: "48px", maxWidth: "560px" }}>
+      <section id="como-funciona" className="px-4 md:px-12 py-16 md:py-20 max-w-[1100px] mx-auto">
+        <p className="font-mono text-[13px] text-[#0E7C7B] mb-3">Cómo funciona</p>
+        <h2 className="font-display font-bold text-[26px] md:text-[32px] mb-10 max-w-[560px]">
           De cero a publicado en una sola sesión
         </h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "24px" }}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {[
             { n: "1", t: "Agenda tu demo", d: "Una sesión de 30 minutos donde armamos tu sitio frente a tus ojos, con tu nombre, tu foto y tu especialidad." },
             { n: "2", t: "Lo ves nacer en vivo", d: "Sin plantillas genéricas. Tu sitio, tus colores, tus palabras clave, optimizado para tu ciudad." },
             { n: "3", t: "Publicado y funcionando", d: "Tu sitio queda en línea con tu dominio propio, listo para que te encuentren en Google." },
           ].map((s) => (
-            <div key={s.n} style={{ background: "#fff", border: `0.5px solid ${border}`, borderRadius: "16px", padding: "28px" }}>
-              <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "13px", color: teal, display: "block", marginBottom: "16px" }}>0{s.n}</span>
-              <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "18px", fontWeight: 700, marginBottom: "10px" }}>{s.t}</h3>
-              <p style={{ fontSize: "14px", opacity: 0.65, lineHeight: 1.6 }}>{s.d}</p>
+            <div key={s.n} className="bg-white border border-[#D8E3E1] rounded-2xl p-6">
+              <span className="font-mono text-[13px] text-[#0E7C7B] block mb-4">0{s.n}</span>
+              <h3 className="font-display font-bold text-lg mb-2.5">{s.t}</h3>
+              <p className="text-sm text-[#0B1418]/65 leading-relaxed">{s.d}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* PRECIOS */}
-      <section id="precios" style={{ padding: "80px 48px", background: ink }}>
-        <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
-          <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "13px", color: live, marginBottom: "12px", textAlign: "center" }}>Precios</p>
-          <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "32px", fontWeight: 700, color: "#fff", marginBottom: "48px", textAlign: "center" }}>
+      <section id="precios" className="px-4 md:px-12 py-16 md:py-20 bg-[#0B1418]">
+        <div className="max-w-[1000px] mx-auto">
+          <p className="font-mono text-[13px] text-[#3DDC84] mb-3 text-center">Precios</p>
+          <h2 className="font-display font-bold text-[26px] md:text-[32px] text-white mb-10 text-center">
             Simple, sin sorpresas
           </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "20px" }}>
-            <div style={{ background: "#16201F", border: `0.5px solid #2A3837`, borderRadius: "16px", padding: "32px" }}>
-              <p style={{ color: "#fff", opacity: 0.6, fontSize: "13px", marginBottom: "8px" }}>Sitio web</p>
-              <div style={{ display: "flex", alignItems: "baseline", gap: "6px", marginBottom: "4px" }}>
-                <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "36px", color: "#fff", fontWeight: 700 }}>$300</span>
-                <span style={{ color: "#fff", opacity: 0.5, fontSize: "13px" }}>dominio (pago único)</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="bg-[#16201F] border border-[#2A3837] rounded-2xl p-7">
+              <p className="text-white/60 text-[13px] mb-2">Sitio web</p>
+              <div className="flex items-baseline gap-1.5 mb-1 flex-wrap">
+                <span className="font-mono text-4xl text-white font-bold">$300</span>
+                <span className="text-white/50 text-[13px]">dominio (pago único)</span>
               </div>
-              <p style={{ color: "#fff", opacity: 0.6, fontSize: "13px", marginBottom: "24px" }}>+ $600/mes mantenimiento</p>
-              <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
+              <p className="text-white/60 text-[13px] mb-6">+ $600/mes mantenimiento</p>
+              <ul className="list-none p-0 flex flex-col gap-2.5">
                 {["Sitio profesional con tu información", "Optimizado para Google e IA", "Botón de WhatsApp directo", "1 actualización mensual", "Reporte mensual de visitas"].map(f => (
-                  <li key={f} style={{ display: "flex", gap: "10px", color: "#fff", opacity: 0.85, fontSize: "13px" }}>
-                    <span style={{ color: live }}>✓</span> {f}
+                  <li key={f} className="flex gap-2.5 text-white/85 text-[13px]">
+                    <span className="text-[#3DDC84] shrink-0">✓</span> {f}
                   </li>
                 ))}
               </ul>
             </div>
-            <div style={{ background: "#16201F", border: `2px solid ${live}`, borderRadius: "16px", padding: "32px", position: "relative" }}>
-              <span style={{ position: "absolute", top: "-12px", left: "32px", background: live, color: ink, fontSize: "11px", padding: "3px 10px", borderRadius: "100px", fontWeight: 700 }}>Más completo</span>
-              <p style={{ color: "#fff", opacity: 0.6, fontSize: "13px", marginBottom: "8px" }}>Campaña de captación</p>
-              <div style={{ display: "flex", alignItems: "baseline", gap: "6px", marginBottom: "4px" }}>
-                <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "36px", color: "#fff", fontWeight: 700 }}>$600</span>
-                <span style={{ color: "#fff", opacity: 0.5, fontSize: "13px" }}>/mes</span>
+            <div className="bg-[#16201F] border-2 border-[#3DDC84] rounded-2xl p-7 relative mt-3 md:mt-0">
+              <span className="absolute -top-3 left-7 bg-[#3DDC84] text-[#0B1418] text-[11px] px-2.5 py-1 rounded-full font-bold">Más completo</span>
+              <p className="text-white/60 text-[13px] mb-2">Campaña de captación</p>
+              <div className="flex items-baseline gap-1.5 mb-1">
+                <span className="font-mono text-4xl text-white font-bold">$600</span>
+                <span className="text-white/50 text-[13px]">/mes</span>
               </div>
-              <p style={{ color: "#fff", opacity: 0.6, fontSize: "13px", marginBottom: "24px" }}>+ inversión en publicidad (tú la manejas)</p>
-              <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
+              <p className="text-white/60 text-[13px] mb-6">+ inversión en publicidad (tú la manejas)</p>
+              <ul className="list-none p-0 flex flex-col gap-2.5">
                 {["Campaña en Google/Facebook Ads", "Diseño de anuncios incluido", "Reportes de rendimiento en vivo", "Optimización continua de anuncios", "Soporte directo por WhatsApp"].map(f => (
-                  <li key={f} style={{ display: "flex", gap: "10px", color: "#fff", opacity: 0.85, fontSize: "13px" }}>
-                    <span style={{ color: live }}>✓</span> {f}
+                  <li key={f} className="flex gap-2.5 text-white/85 text-[13px]">
+                    <span className="text-[#3DDC84] shrink-0">✓</span> {f}
                   </li>
                 ))}
               </ul>
             </div>
           </div>
-          <p style={{ textAlign: "center", color: "#fff", opacity: 0.4, fontSize: "12px", marginTop: "24px" }}>
+          <p className="text-center text-white/40 text-xs mt-6">
             Sin contratos largos. Cancela cuando quieras.
           </p>
         </div>
       </section>
 
       {/* FAQ */}
-      <section id="faq" style={{ padding: "80px 48px", maxWidth: "720px", margin: "0 auto" }}>
-        <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "13px", color: teal, marginBottom: "12px" }}>Preguntas frecuentes</p>
-        <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "32px", fontWeight: 700, marginBottom: "40px" }}>
+      <section id="faq" className="px-4 md:px-12 py-16 md:py-20 max-w-[720px] mx-auto">
+        <p className="font-mono text-[13px] text-[#0E7C7B] mb-3">Preguntas frecuentes</p>
+        <h2 className="font-display font-bold text-[26px] md:text-[32px] mb-9">
           Todo lo que necesitas saber
         </h2>
-        <div style={{ display: "flex", flexDirection: "column", gap: "1px", border: `0.5px solid ${border}`, borderRadius: "16px", overflow: "hidden" }}>
+        <div className="flex flex-col gap-px border border-[#D8E3E1] rounded-2xl overflow-hidden">
           {[
             { q: "¿Cuánto tarda en estar listo mi sitio?", a: "En una sola sesión de 30 minutos armamos tu sitio. Queda publicado en menos de 48 horas." },
             { q: "¿Necesito saber de tecnología?", a: "No. Tú solo respondes preguntas en la videollamada, nosotros nos encargamos de todo lo técnico." },
             { q: "¿Puedo cancelar cuando quiera?", a: "Sí, no hay contratos largos. Cancela cuando quieras sin penalización." },
             { q: "¿El dominio es mío?", a: "Sí, el dominio se registra a tu nombre y es completamente tuyo." },
           ].map(item => (
-            <div key={item.q} style={{ background: "#fff", padding: "20px 24px" }}>
-              <p style={{ fontWeight: 600, fontSize: "15px", marginBottom: "6px" }}>{item.q}</p>
-              <p style={{ fontSize: "14px", opacity: 0.6, lineHeight: 1.6 }}>{item.a}</p>
+            <div key={item.q} className="bg-white p-5">
+              <p className="font-semibold text-[15px] mb-1.5">{item.q}</p>
+              <p className="text-sm text-[#0B1418]/60 leading-relaxed">{item.a}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* CTA FINAL */}
-      <section id="demo" style={{ padding: "80px 48px", textAlign: "center" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: surface, padding: "6px 14px", borderRadius: "100px", marginBottom: "24px" }}>
-          <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: live }}></span>
-          <span style={{ fontSize: "12px", fontFamily: "'JetBrains Mono', monospace", color: teal }}>Cupo limitado esta semana</span>
+      <section id="demo" className="px-4 md:px-12 py-16 md:py-20 text-center">
+        <div className="inline-flex items-center gap-2 bg-[#EDF2F1] px-3.5 py-1.5 rounded-full mb-6">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#3DDC84] shrink-0"></span>
+          <span className="text-xs font-mono text-[#0E7C7B]">Cupo limitado esta semana</span>
         </div>
-        <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: "36px", fontWeight: 700, marginBottom: "16px" }}>
+        <h2 className="font-display font-bold text-[28px] md:text-[36px] mb-4">
           Agenda tu demo gratis
         </h2>
-        <p style={{ fontSize: "16px", opacity: 0.6, marginBottom: "32px" }}>
+        <p className="text-base text-[#0B1418]/60 mb-8">
           30 minutos. Sin compromiso. Ves tu sitio nacer en vivo.
         </p>
-        <a href="https://wa.me/524441905298" target="_blank" rel="noopener noreferrer" style={{ background: ink, color: "#fff", padding: "16px 36px", borderRadius: "8px", fontSize: "16px", textDecoration: "none", fontWeight: 500, display: "inline-block" }}>
+        <a href="https://wa.me/524441905298" target="_blank" rel="noopener noreferrer" className="bg-[#0B1418] text-white px-9 py-4 rounded-lg text-base no-underline font-medium inline-block">
           Agendar por WhatsApp →
         </a>
       </section>
 
       {/* FOOTER */}
-      <footer style={{ padding: "32px 48px", borderTop: `0.5px solid ${border}`, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: "14px" }}>Uno por Ciento</span>
-        <span style={{ fontSize: "12px", opacity: 0.4 }}>© 2026 · Sitios web para doctores</span>
+      <footer className="px-4 md:px-12 py-8 border-t border-[#D8E3E1] flex flex-col sm:flex-row justify-between items-center gap-2 text-center sm:text-left">
+        <span className="font-display font-bold text-sm">Uno por Ciento</span>
+        <span className="text-xs text-[#0B1418]/40">© 2026 · Sitios web para doctores</span>
       </footer>
 
     </main>
