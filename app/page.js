@@ -206,7 +206,7 @@ export default function Home() {
         <p style={{ fontSize: "16px", opacity: 0.6, marginBottom: "32px" }}>
           30 minutos. Sin compromiso. Ves tu sitio nacer en vivo.
         </p>
-        <a href="https://wa.me/524778024500" target="_blank" rel="noopener noreferrer" style={{ background: ink, color: "#fff", padding: "16px 36px", borderRadius: "8px", fontSize: "16px", textDecoration: "none", fontWeight: 500, display: "inline-block" }}>
+        <a href="https://wa.me/524441905298" target="_blank" rel="noopener noreferrer" style={{ background: ink, color: "#fff", padding: "16px 36px", borderRadius: "8px", fontSize: "16px", textDecoration: "none", fontWeight: 500, display: "inline-block" }}>
           Agendar por WhatsApp →
         </a>
       </section>
