@@ -8,6 +8,8 @@ export default function DashboardPage() {
   const supabase = createClient();
   const [doctor, setDoctor] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [analytics, setAnalytics] = useState(null);
+  const [analyticsLoading, setAnalyticsLoading] = useState(false);
 
   useEffect(() => {
     async function load() {
@@ -34,6 +36,20 @@ export default function DashboardPage() {
 
       setDoctor(data);
       setLoading(false);
+
+      if (data.ga4_property_id) {
+        setAnalyticsLoading(true);
+        try {
+          const res = await fetch(`/api/analytics?propertyId=${data.ga4_property_id}`);
+          const analyticsData = await res.json();
+          if (!analyticsData.error) {
+            setAnalytics(analyticsData);
+          }
+        } catch (err) {
+          console.error("Error cargando analytics:", err);
+        }
+        setAnalyticsLoading(false);
+      }
     }
     load();
   }, []);
@@ -110,16 +126,22 @@ export default function DashboardPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div style={{ borderColor: border }} className="border rounded-2xl p-5">
-            <p style={{ color: ink, opacity: 0.5 }} className="text-xs mb-2">Visitas este mes</p>
-            <p style={{ color: ink }} className="font-mono text-2xl font-bold">—</p>
+            <p style={{ color: ink, opacity: 0.5 }} className="text-xs mb-2">Visitas (30 días)</p>
+            <p style={{ color: ink }} className="font-mono text-2xl font-bold">
+              {analyticsLoading ? "..." : analytics ? analytics.pageViews : "—"}
+            </p>
           </div>
           <div style={{ borderColor: border }} className="border rounded-2xl p-5">
-            <p style={{ color: ink, opacity: 0.5 }} className="text-xs mb-2">Mensajes WhatsApp</p>
-            <p style={{ color: ink }} className="font-mono text-2xl font-bold">—</p>
+            <p style={{ color: ink, opacity: 0.5 }} className="text-xs mb-2">Visitantes únicos</p>
+            <p style={{ color: ink }} className="font-mono text-2xl font-bold">
+              {analyticsLoading ? "..." : analytics ? analytics.activeUsers : "—"}
+            </p>
           </div>
           <div style={{ borderColor: border }} className="border rounded-2xl p-5">
             <p style={{ color: ink, opacity: 0.5 }} className="text-xs mb-2">Estado</p>
-            <p style={{ color: teal }} className="font-mono text-sm font-bold">En construcción</p>
+            <p style={{ color: teal }} className="font-mono text-sm font-bold">
+              {doctor.ga4_property_id ? "Activo" : "En construcción"}
+            </p>
           </div>
         </div>
 
