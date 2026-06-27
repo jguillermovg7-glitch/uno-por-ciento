@@ -1,10 +1,23 @@
 import { BetaAnalyticsDataClient } from "@google-analytics/data";
 import { NextResponse } from "next/server";
 
+function getPrivateKey() {
+  // Soporta tanto la clave en texto plano (con \n) como en base64
+  const raw = process.env.GA4_PRIVATE_KEY;
+  if (!raw) return undefined;
+
+  if (raw.includes("BEGIN PRIVATE KEY")) {
+    // Ya viene en texto plano, solo normalizamos los \n
+    return raw.replace(/\\n/g, "\n");
+  }
+  // Viene en base64, la decodificamos
+  return Buffer.from(raw, "base64").toString("utf-8");
+}
+
 const analyticsDataClient = new BetaAnalyticsDataClient({
   credentials: {
     client_email: process.env.GA4_CLIENT_EMAIL,
-    private_key: process.env.GA4_PRIVATE_KEY,
+    private_key: getPrivateKey(),
   },
 });
 
