@@ -43,6 +43,29 @@ export default function DashboardPage() {
     router.push("/");
   }
 
+  const [portalLoading, setPortalLoading] = useState(false);
+
+  async function handleManageSubscription() {
+    setPortalLoading(true);
+    try {
+      const res = await fetch("/api/create-portal-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ customerId: doctor.stripe_customer_id }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert("No se pudo abrir el portal: " + (data.error || "error desconocido"));
+        setPortalLoading(false);
+      }
+    } catch (err) {
+      alert("Error de conexión");
+      setPortalLoading(false);
+    }
+  }
+
   const ink = "#0B1418";
   const teal = "#0E7C7B";
   const live = "#3DDC84";
@@ -98,6 +121,23 @@ export default function DashboardPage() {
             <p style={{ color: ink, opacity: 0.5 }} className="text-xs mb-2">Estado</p>
             <p style={{ color: teal }} className="font-mono text-sm font-bold">En construcción</p>
           </div>
+        </div>
+
+        <div style={{ borderColor: border }} className="border rounded-2xl p-6 mt-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div>
+            <p style={{ color: ink }} className="font-display font-bold text-sm mb-1">Tu suscripción</p>
+            <p style={{ color: ink, opacity: 0.6 }} className="text-[13px]">
+              Administra tu plan, actualiza tu tarjeta o cancela cuando quieras.
+            </p>
+          </div>
+          <button
+            onClick={handleManageSubscription}
+            disabled={portalLoading}
+            style={{ borderColor: border, color: ink }}
+            className="border rounded-lg px-5 py-2.5 text-sm font-medium whitespace-nowrap disabled:opacity-50"
+          >
+            {portalLoading ? "Abriendo..." : "Gestionar suscripción →"}
+          </button>
         </div>
       </div>
     </main>
