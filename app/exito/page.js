@@ -8,16 +8,16 @@ export default function ExitoPage() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCountdown((c) => {
-        if (c <= 1) {
-          router.push("/dashboard");
-          return 0;
-        }
-        return c - 1;
-      });
+      setCountdown((c) => c - 1);
     }, 1000);
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    if (countdown <= 0) {
+      router.push("/dashboard");
+    }
+  }, [countdown]);
 
   const ink = "#0B1418";
   const live = "#3DDC84";
@@ -41,7 +41,7 @@ export default function ExitoPage() {
         </p>
 
         <p style={{ color: ink, opacity: 0.4 }} className="text-xs">
-          Redirigiendo a tu panel en {countdown}...
+          Redirigiendo a tu panel en {Math.max(countdown, 0)}...
         </p>
       </div>
     </main>

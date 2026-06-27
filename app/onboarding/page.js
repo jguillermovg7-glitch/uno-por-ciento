@@ -56,7 +56,7 @@ export default function OnboardingPage() {
       plan: plan,
       ...form,
       estado: "formulario_completo",
-    });
+    }, { onConflict: "user_id" });
 
     setSaving(false);
 

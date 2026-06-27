@@ -23,8 +23,11 @@ export default function Home() {
 
       {/* NAV */}
       <nav className="flex justify-between items-center px-4 md:px-12 py-4 border-b border-[#D8E3E1] sticky top-0 bg-white z-50">
-        <div className="flex items-center">
-          <img src="/logo-uno.png" alt="Uno por Ciento" style={{ height: "34px", width: "auto" }} />
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-lg bg-[#0B1418] flex items-center justify-center shrink-0">
+            <span className="text-[#3DDC84] font-mono font-bold text-[13px]">1%</span>
+          </div>
+          <span className="font-display font-bold text-[17px] whitespace-nowrap">Uno por Ciento</span>
         </div>
         <div className="hidden md:flex gap-8 items-center">
           <a href="#como-funciona" className="text-sm text-[#0B1418]/70 no-underline">Cómo funciona</a>
@@ -52,7 +55,7 @@ export default function Home() {
             Tu sitio web profesional, optimizado para Google y búsquedas con IA. Configurado una vez, funcionando para siempre.
           </p>
           <div className="flex flex-wrap gap-3">
-            <a href="#demo" className="bg-[#0B1418] text-white px-6 py-3.5 rounded-lg text-[15px] no-underline font-medium">Ver mi sitio gratis →</a>
+            <a href="/planes" className="bg-[#0B1418] text-white px-6 py-3.5 rounded-lg text-[15px] no-underline font-medium">Ver mi sitio gratis →</a>
             <a href="#precios" className="border border-[#D8E3E1] text-[#0B1418] px-6 py-3.5 rounded-lg text-[15px] no-underline font-medium">Ver precios</a>
           </div>
         </div>
@@ -135,6 +138,9 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
+              <a href="/planes" className="block text-center bg-white text-[#0B1418] rounded-lg py-3 text-sm font-medium no-underline mt-6">
+                Elegir este plan
+              </a>
             </div>
             <div className="bg-[#16201F] border-2 border-[#3DDC84] rounded-2xl p-7 relative mt-3 md:mt-0">
               <span className="absolute -top-3 left-7 bg-[#3DDC84] text-[#0B1418] text-[11px] px-2.5 py-1 rounded-full font-bold">Más completo</span>
@@ -151,6 +157,9 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
+              <a href="/planes" className="block text-center bg-[#3DDC84] text-[#0B1418] rounded-lg py-3 text-sm font-medium no-underline mt-6">
+                Elegir este plan
+              </a>
             </div>
           </div>
           <p className="text-center text-white/40 text-xs mt-6">
