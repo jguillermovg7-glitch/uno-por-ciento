@@ -1,9 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { createClient } from "../../lib/supabaseClient";
 
-export default function LoginPage() {
+function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -146,5 +146,17 @@ export default function LoginPage() {
         </p>
       </div>
     </main>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <main style={{ backgroundColor: "#FFFFFF" }} className="min-h-screen flex items-center justify-center">
+        <p style={{ color: "#0B1418" }}>Cargando...</p>
+      </main>
+    }>
+      <LoginForm />
+    </Suspense>
   );
 }
