@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { createClient } from "../../lib/supabaseClient";
 
 export default function LoginPage() {
@@ -9,15 +10,22 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [mode, setMode] = useState("login");
+  const [nextUrl, setNextUrl] = useState("/dashboard");
 
   const supabase = createClient();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const next = searchParams.get("next");
+    if (next) setNextUrl(next);
+  }, [searchParams]);
 
   async function handleGoogleLogin() {
     setError("");
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/dashboard`,
+        redirectTo: `${window.location.origin}${nextUrl}`,
       },
     });
     if (error) setError(error.message);
@@ -34,13 +42,13 @@ export default function LoginPage() {
       if (error) {
         setError("Correo o contraseña incorrectos.");
       } else {
-        window.location.href = "/dashboard";
+        window.location.href = nextUrl;
       }
     } else {
       const { error } = await supabase.auth.signUp({
         email,
         password,
-        options: { emailRedirectTo: `${window.location.origin}/dashboard` },
+        options: { emailRedirectTo: `${window.location.origin}${nextUrl}` },
       });
       if (error) {
         setError(error.message);
