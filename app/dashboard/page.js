@@ -10,6 +10,7 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [analytics, setAnalytics] = useState(null);
   const [analyticsLoading, setAnalyticsLoading] = useState(false);
+  const [campanaMetricas, setCampanaMetricas] = useState(null);
 
   useEffect(() => {
     async function load() {
@@ -37,7 +38,7 @@ export default function DashboardPage() {
       setDoctor(data);
       setLoading(false);
 
-      if (data.ga4_property_id) {
+      if (data.plan === "sitio" && data.ga4_property_id) {
         setAnalyticsLoading(true);
         try {
           const res = await fetch(`/api/analytics?propertyId=${data.ga4_property_id}`);
@@ -49,6 +50,23 @@ export default function DashboardPage() {
           console.error("Error cargando analytics:", err);
         }
         setAnalyticsLoading(false);
+      }
+
+      if (data.plan === "campana") {
+        const { data: metricas } = await supabase
+          .from("metricas_campana")
+          .select("*")
+          .eq("doctor_id", data.id)
+          .order("fecha", { ascending: false });
+
+        if (metricas && metricas.length > 0) {
+          const totales = metricas.reduce((acc, m) => ({
+            alcance: acc.alcance + (m.alcance || 0),
+            mensajes: acc.mensajes + (m.mensajes || 0),
+            gasto: acc.gasto + (parseFloat(m.gasto) || 0),
+          }), { alcance: 0, mensajes: 0, gasto: 0 });
+          setCampanaMetricas(totales);
+        }
       }
     }
     load();
@@ -124,26 +142,49 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div style={{ borderColor: border }} className="border rounded-2xl p-5">
-            <p style={{ color: ink, opacity: 0.5 }} className="text-xs mb-2">Visitas (30 días)</p>
-            <p style={{ color: ink }} className="font-mono text-2xl font-bold">
-              {analyticsLoading ? "..." : analytics ? analytics.pageViews : "—"}
-            </p>
+        {doctor.plan === "sitio" ? (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div style={{ borderColor: border }} className="border rounded-2xl p-5">
+              <p style={{ color: ink, opacity: 0.5 }} className="text-xs mb-2">Visitas (30 días)</p>
+              <p style={{ color: ink }} className="font-mono text-2xl font-bold">
+                {analyticsLoading ? "..." : analytics ? analytics.pageViews : "—"}
+              </p>
+            </div>
+            <div style={{ borderColor: border }} className="border rounded-2xl p-5">
+              <p style={{ color: ink, opacity: 0.5 }} className="text-xs mb-2">Visitantes únicos</p>
+              <p style={{ color: ink }} className="font-mono text-2xl font-bold">
+                {analyticsLoading ? "..." : analytics ? analytics.activeUsers : "—"}
+              </p>
+            </div>
+            <div style={{ borderColor: border }} className="border rounded-2xl p-5">
+              <p style={{ color: ink, opacity: 0.5 }} className="text-xs mb-2">Estado</p>
+              <p style={{ color: teal }} className="font-mono text-sm font-bold">
+                {doctor.ga4_property_id ? "Activo" : "En construcción"}
+              </p>
+            </div>
           </div>
-          <div style={{ borderColor: border }} className="border rounded-2xl p-5">
-            <p style={{ color: ink, opacity: 0.5 }} className="text-xs mb-2">Visitantes únicos</p>
-            <p style={{ color: ink }} className="font-mono text-2xl font-bold">
-              {analyticsLoading ? "..." : analytics ? analytics.activeUsers : "—"}
-            </p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div style={{ borderColor: border }} className="border rounded-2xl p-5">
+              <p style={{ color: ink, opacity: 0.5 }} className="text-xs mb-2">Alcance total</p>
+              <p style={{ color: ink }} className="font-mono text-2xl font-bold">
+                {campanaMetricas ? campanaMetricas.alcance.toLocaleString() : "—"}
+              </p>
+            </div>
+            <div style={{ borderColor: border }} className="border rounded-2xl p-5">
+              <p style={{ color: ink, opacity: 0.5 }} className="text-xs mb-2">Mensajes recibidos</p>
+              <p style={{ color: teal }} className="font-mono text-2xl font-bold">
+                {campanaMetricas ? campanaMetricas.mensajes : "—"}
+              </p>
+            </div>
+            <div style={{ borderColor: border }} className="border rounded-2xl p-5">
+              <p style={{ color: ink, opacity: 0.5 }} className="text-xs mb-2">Invertido</p>
+              <p style={{ color: ink }} className="font-mono text-2xl font-bold">
+                {campanaMetricas ? `$${campanaMetricas.gasto.toFixed(0)}` : "—"}
+              </p>
+            </div>
           </div>
-          <div style={{ borderColor: border }} className="border rounded-2xl p-5">
-            <p style={{ color: ink, opacity: 0.5 }} className="text-xs mb-2">Estado</p>
-            <p style={{ color: teal }} className="font-mono text-sm font-bold">
-              {doctor.ga4_property_id ? "Activo" : "En construcción"}
-            </p>
-          </div>
-        </div>
+        )}
 
         <div style={{ borderColor: border }} className="border rounded-2xl p-6 mt-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
