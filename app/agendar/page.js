@@ -189,7 +189,7 @@ function AgendarForm() {
               <div className="flex gap-2 overflow-x-auto pb-2 mb-5" style={{ scrollbarWidth: "none" }}>
                 {next14Days.map((d, i) => {
                   const isSelected = fecha && d.toDateString() === fecha.toDateString();
-                  const dayName = d.toLocaleDateString("es-MX", { weekday: "short" }).slice(0, 2);
+                  const dayName = d.toLocaleDateString("es-MX", { weekday: "short", timeZone: "America/Mexico_City" }).slice(0, 2);
                   const dayNum = d.getDate();
                   return (
                     <button
@@ -223,7 +223,7 @@ function AgendarForm() {
                   ) : (
                     <div className="grid grid-cols-3 gap-2">
                       {slots.map(slot => {
-                        const time = new Date(slot).toLocaleTimeString("es-MX", { hour: "numeric", minute: "2-digit", hour12: true });
+                        const time = new Date(slot).toLocaleTimeString("es-MX", { hour: "numeric", minute: "2-digit", hour12: true, timeZone: "America/Mexico_City" });
                         return (
                           <button
                             key={slot}
@@ -251,7 +251,7 @@ function AgendarForm() {
               <div style={{ backgroundColor: surface }} className="rounded-xl p-4 mb-5">
                 <p style={{ color: ink }} className="text-sm font-semibold">{servicioSeleccionado.nombre}</p>
                 <p style={{ color: teal }} className="text-xs mt-0.5">
-                  {new Date(horaSeleccionada).toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long" })} · {new Date(horaSeleccionada).toLocaleTimeString("es-MX", { hour: "numeric", minute: "2-digit", hour12: true })}
+                  {new Date(horaSeleccionada).toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long", timeZone: "America/Mexico_City" })} · {new Date(horaSeleccionada).toLocaleTimeString("es-MX", { hour: "numeric", minute: "2-digit", hour12: true, timeZone: "America/Mexico_City" })}
                 </p>
               </div>
 
@@ -293,11 +293,11 @@ function AgendarForm() {
               </div>
               <p style={{ color: ink }} className="font-display font-bold text-xl mb-2">¡Cita confirmada!</p>
               <p style={{ color: ink, opacity: 0.6 }} className="text-sm mb-6">
-                Te esperamos el {new Date(horaSeleccionada).toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long" })} a las {new Date(horaSeleccionada).toLocaleTimeString("es-MX", { hour: "numeric", minute: "2-digit", hour12: true })}.
+                Te esperamos el {new Date(horaSeleccionada).toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long", timeZone: "America/Mexico_City" })} a las {new Date(horaSeleccionada).toLocaleTimeString("es-MX", { hour: "numeric", minute: "2-digit", hour12: true, timeZone: "America/Mexico_City" })}.
               </p>
               {doctor.whatsapp && (
                 <a
-                  href={`https://wa.me/52${doctor.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(`Hola, soy ${pacienteNombre}. Acabo de agendar una cita de ${servicioSeleccionado.nombre} el ${new Date(horaSeleccionada).toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long" })} a las ${new Date(horaSeleccionada).toLocaleTimeString("es-MX", { hour: "numeric", minute: "2-digit", hour12: true })}. ¡Confirmo mi asistencia!`)}`}
+                  href={`https://wa.me/52${doctor.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(`Hola, soy ${pacienteNombre}. Acabo de agendar una cita de ${servicioSeleccionado.nombre} el ${new Date(horaSeleccionada).toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long", timeZone: "America/Mexico_City" })} a las ${new Date(horaSeleccionada).toLocaleTimeString("es-MX", { hour: "numeric", minute: "2-digit", hour12: true, timeZone: "America/Mexico_City" })}. ¡Confirmo mi asistencia!`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ backgroundColor: "#25D366", color: "#fff" }}

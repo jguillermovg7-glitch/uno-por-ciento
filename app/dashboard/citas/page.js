@@ -86,13 +86,13 @@ export default function CitasPage() {
                 <div key={cita.id} style={{ borderColor: border }} className="border rounded-2xl p-5 flex justify-between items-center gap-4">
                   <div>
                     <p style={{ color: teal }} className="text-xs font-mono mb-1">
-                      {fecha.toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long" })} · {fecha.toLocaleTimeString("es-MX", { hour: "numeric", minute: "2-digit", hour12: true })}
+                      {fecha.toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long", timeZone: "America/Mexico_City" })} · {fecha.toLocaleTimeString("es-MX", { hour: "numeric", minute: "2-digit", hour12: true, timeZone: "America/Mexico_City" })}
                     </p>
                     <p style={{ color: ink }} className="text-sm font-semibold">{cita.paciente_nombre}</p>
                     <p style={{ color: ink, opacity: 0.5 }} className="text-xs">{cita.servicios?.nombre || "Servicio"}</p>
                   </div>
                   <a
-                    href={`https://wa.me/52${cita.paciente_telefono.replace(/\D/g, "")}?text=${encodeURIComponent(`Hola ${cita.paciente_nombre}, te confirmo tu cita del ${fecha.toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long" })} a las ${fecha.toLocaleTimeString("es-MX", { hour: "numeric", minute: "2-digit", hour12: true })}.`)}`}
+                    href={`https://wa.me/52${cita.paciente_telefono.replace(/\D/g, "")}?text=${encodeURIComponent(`Hola ${cita.paciente_nombre}, te confirmo tu cita del ${fecha.toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long", timeZone: "America/Mexico_City" })} a las ${fecha.toLocaleTimeString("es-MX", { hour: "numeric", minute: "2-digit", hour12: true, timeZone: "America/Mexico_City" })}.`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ backgroundColor: "#25D366", color: "#fff" }}

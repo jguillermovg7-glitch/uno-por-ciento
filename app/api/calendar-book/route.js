@@ -87,8 +87,8 @@ export async function POST(request) {
     });
 
     // Enviar notificación por correo al doctor (no bloqueante)
-    const fechaFormateada = startDate.toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long" });
-    const horaFormateada = startDate.toLocaleTimeString("es-MX", { hour: "numeric", minute: "2-digit", hour12: true });
+    const fechaFormateada = startDate.toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long", timeZone: "America/Mexico_City" });
+    const horaFormateada = startDate.toLocaleTimeString("es-MX", { hour: "numeric", minute: "2-digit", hour12: true, timeZone: "America/Mexico_City" });
 
     if (doctor.email) {
       try {
