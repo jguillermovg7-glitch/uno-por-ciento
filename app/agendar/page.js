@@ -43,7 +43,7 @@ function AgendarForm() {
         return;
       }
       const { data: doctorData } = await supabase
-        .from("doctores")
+        .from("doctores_publico")
         .select("*")
         .eq("id", doctorId)
         .single();
