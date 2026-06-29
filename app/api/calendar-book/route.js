@@ -91,21 +91,25 @@ export async function POST(request) {
     const horaFormateada = startDate.toLocaleTimeString("es-MX", { hour: "numeric", minute: "2-digit", hour12: true });
 
     if (doctor.email) {
-      resend.emails.send({
-        from: "Uno por Ciento <onboarding@resend.dev>",
-        to: doctor.email,
-        subject: `Nueva cita agendada: ${pacienteNombre}`,
-        html: `
-          <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
-            <h2 style="color: #0B1418;">Te acaban de agendar una cita 🎉</h2>
-            <p style="color: #444; font-size: 15px;">
-              <strong>${pacienteNombre}</strong> agendó <strong>${servicio.nombre}</strong> para el ${fechaFormateada} a las ${horaFormateada}.
-            </p>
-            <p style="color: #444; font-size: 15px;">Teléfono de contacto: ${pacienteTelefono}</p>
-            <p style="color: #888; font-size: 13px; margin-top: 24px;">La cita ya quedó agregada a tu Google Calendar automáticamente.</p>
-          </div>
-        `,
-      }).catch(err => console.error("Email error:", err));
+      try {
+        await resend.emails.send({
+          from: "Uno por Ciento <onboarding@resend.dev>",
+          to: doctor.email,
+          subject: `Nueva cita agendada: ${pacienteNombre}`,
+          html: `
+            <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
+              <h2 style="color: #0B1418;">Te acaban de agendar una cita 🎉</h2>
+              <p style="color: #444; font-size: 15px;">
+                <strong>${pacienteNombre}</strong> agendó <strong>${servicio.nombre}</strong> para el ${fechaFormateada} a las ${horaFormateada}.
+              </p>
+              <p style="color: #444; font-size: 15px;">Teléfono de contacto: ${pacienteTelefono}</p>
+              <p style="color: #888; font-size: 13px; margin-top: 24px;">La cita ya quedó agregada a tu Google Calendar automáticamente.</p>
+            </div>
+          `,
+        });
+      } catch (emailErr) {
+        console.error("Email error:", emailErr);
+      }
     }
 
     return NextResponse.json({ success: true, eventId: eventData.id });
