@@ -202,6 +202,24 @@ export default function DashboardPage() {
           </a>
         </div>
 
+        {doctor.google_calendar_connected && (
+          <div style={{ borderColor: border }} className="border rounded-2xl p-6 mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+              <p style={{ color: ink }} className="font-display font-bold text-sm mb-1">Tus citas</p>
+              <p style={{ color: ink, opacity: 0.6 }} className="text-[13px]">
+                Revisa y contacta a los pacientes que agendaron contigo.
+              </p>
+            </div>
+            <a
+              href="/dashboard/citas"
+              style={{ borderColor: border, color: ink }}
+              className="border rounded-lg px-5 py-2.5 text-sm font-medium whitespace-nowrap no-underline"
+            >
+              Ver citas →
+            </a>
+          </div>
+        )}
+
         <div style={{ borderColor: border }} className="border rounded-2xl p-6 mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
             <p style={{ color: ink }} className="font-display font-bold text-sm mb-1">Tu suscripción</p>

@@ -113,6 +113,28 @@ export default function ServiciosPage() {
           Estos servicios aparecerán en tu sitio para que los pacientes agenden cita.
         </p>
 
+        <div style={{ borderColor: doctor.google_calendar_connected ? "#3DDC84" : border }} className="border-2 rounded-2xl p-5 mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div>
+            <p style={{ color: ink }} className="font-display font-bold text-sm mb-1">
+              {doctor.google_calendar_connected ? "✓ Google Calendar conectado" : "Conecta tu Google Calendar"}
+            </p>
+            <p style={{ color: ink, opacity: 0.6 }} className="text-[13px]">
+              {doctor.google_calendar_connected
+                ? "Las citas que agenden tus pacientes se crearán automáticamente en tu calendario."
+                : "Necesario para que tus pacientes puedan agendar citas directamente en tu sitio."}
+            </p>
+          </div>
+          {!doctor.google_calendar_connected && (
+            <a
+              href={`/api/connect-calendar?doctorId=${doctor.id}`}
+              style={{ backgroundColor: teal, color: "#fff" }}
+              className="rounded-lg px-5 py-2.5 text-sm font-medium whitespace-nowrap no-underline"
+            >
+              Conectar Calendar →
+            </a>
+          )}
+        </div>
+
         <form onSubmit={handleAdd} style={{ borderColor: border }} className="border rounded-2xl p-5 mb-8">
           <p style={{ color: ink }} className="font-display font-bold text-sm mb-4">Agregar nuevo servicio</p>
           <div className="grid grid-cols-1 md:grid-cols-[1fr_120px_120px] gap-3 mb-3">
