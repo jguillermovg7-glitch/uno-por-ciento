@@ -233,7 +233,7 @@ function AgendarForm() {
                         return (
                           <button
                             key={slot}
-                            onClick={() => { console.log("DEBUG slot:", slot); setHoraSeleccionada(slot); setStep(3); }}
+                            onClick={() => { setHoraSeleccionada(slot); setStep(3); }}
                             style={{ borderColor: border, color: ink }}
                             className="border rounded-lg py-2.5 text-xs font-medium hover:border-[#0E7C7B] hover:bg-[#F4FAF9] transition"
                           >
@@ -253,7 +253,6 @@ function AgendarForm() {
             <div>
               <button onClick={() => setStep(2)} style={{ color: ink, opacity: 0.5 }} className="text-xs mb-4">← Cambiar horario</button>
               <p style={{ color: ink }} className="font-display font-bold text-base mb-4">Tus datos</p>
-              <p style={{ color: "red", fontSize: "10px" }}>DEBUG RAW: {horaSeleccionada}</p>
 
               <div style={{ backgroundColor: surface }} className="rounded-xl p-4 mb-5">
                 <p style={{ color: ink }} className="text-sm font-semibold">{servicioSeleccionado.nombre}</p>
