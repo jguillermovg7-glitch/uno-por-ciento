@@ -66,7 +66,13 @@ function AgendarForm() {
     setHoraSeleccionada(null);
     setSlotsLoading(true);
 
-    const fechaStr = dateObj.toISOString().split("T")[0];
+    // Usar componentes locales de fecha, no toISOString() que convierte a UTC
+    // y puede cambiar el día en zonas horarias negativas como México.
+    const year = dateObj.getFullYear();
+    const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+    const day = String(dateObj.getDate()).padStart(2, "0");
+    const fechaStr = `${year}-${month}-${day}`;
+
     const res = await fetch(`/api/calendar-availability?doctorId=${doctorId}&fecha=${fechaStr}`);
     const data = await res.json();
     setSlots(data.slots || []);
