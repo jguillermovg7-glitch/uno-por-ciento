@@ -11,6 +11,7 @@ export default function DashboardPage() {
   const [analytics, setAnalytics] = useState(null);
   const [analyticsLoading, setAnalyticsLoading] = useState(false);
   const [campanaMetricas, setCampanaMetricas] = useState(null);
+  const [linkCopiado, setLinkCopiado] = useState(false);
 
   useEffect(() => {
     async function load() {
@@ -141,6 +142,44 @@ export default function DashboardPage() {
             Te avisaremos por WhatsApp al {doctor.whatsapp} en cuanto esté listo. Normalmente toma menos de 48 horas.
           </p>
         </div>
+
+        {doctor.google_calendar_connected && (
+          <div style={{ borderColor: teal, backgroundColor: "#F4FAF9" }} className="border-2 rounded-2xl p-6 mb-8">
+            <p style={{ color: ink }} className="font-display font-bold text-sm mb-1">📅 Tu enlace para agendar citas</p>
+            <p style={{ color: ink, opacity: 0.6 }} className="text-[13px] mb-4">
+              Comparte este enlace con tus pacientes para que agenden cita solos.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-2">
+              <input
+                readOnly
+                value={`https://uno-por-ciento.vercel.app/agendar?doctor=${doctor.id}`}
+                onClick={(e) => e.target.select()}
+                style={{ borderColor: border, color: ink, backgroundColor: "#fff" }}
+                className="border rounded-lg px-3 py-2.5 text-xs flex-1 outline-none"
+              />
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(`https://uno-por-ciento.vercel.app/agendar?doctor=${doctor.id}`);
+                  setLinkCopiado(true);
+                  setTimeout(() => setLinkCopiado(false), 2000);
+                }}
+                style={{ backgroundColor: teal, color: "#fff" }}
+                className="rounded-lg px-5 py-2.5 text-xs font-medium whitespace-nowrap"
+              >
+                {linkCopiado ? "¡Copiado! ✓" : "Copiar enlace"}
+              </button>
+              <a
+                href={`https://wa.me/52${doctor.whatsapp?.replace(/\D/g, "")}?text=${encodeURIComponent(`Aquí puedes agendar tu cita: https://uno-por-ciento.vercel.app/agendar?doctor=${doctor.id}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ backgroundColor: "#25D366", color: "#fff" }}
+                className="rounded-lg px-5 py-2.5 text-xs font-medium whitespace-nowrap text-center no-underline"
+              >
+                💬 Compartir
+              </a>
+            </div>
+          </div>
+        )}
 
         {doctor.plan === "sitio" ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

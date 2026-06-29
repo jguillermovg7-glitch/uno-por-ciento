@@ -18,25 +18,28 @@ export default function Home() {
     requestAnimationFrame(tick);
   }, []);
 
+  const ink = "#0B1418";
+  const teal = "#0E7C7B";
+  const live = "#3DDC84";
+  const surface = "#EDF2F1";
+  const border = "#D8E3E1";
+
   return (
     <main className="font-sans bg-white text-[#0B1418] min-h-screen overflow-x-hidden">
 
       {/* NAV */}
       <nav className="flex justify-between items-center px-4 md:px-12 py-4 border-b border-[#D8E3E1] sticky top-0 bg-white z-50">
-        <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-[#0B1418] flex items-center justify-center shrink-0">
-            <span className="text-[#3DDC84] font-mono font-bold text-[13px]">1%</span>
-          </div>
-          <span className="font-display font-bold text-[17px] whitespace-nowrap">Uno por Ciento</span>
+        <div className="flex items-center">
+          <img src="/logo-uno.png" alt="Uno por Ciento" style={{ height: "34px", width: "auto" }} />
         </div>
         <div className="hidden md:flex gap-8 items-center">
-          <a href="#como-funciona" className="text-sm text-[#0B1418]/70 no-underline">Cómo funciona</a>
+          <a href="#ventajas" className="text-sm text-[#0B1418]/70 no-underline">Qué incluye</a>
           <a href="#precios" className="text-sm text-[#0B1418]/70 no-underline">Precios</a>
           <a href="#faq" className="text-sm text-[#0B1418]/70 no-underline">FAQ</a>
           <a href="/login" className="text-sm text-[#0B1418]/70 no-underline">Iniciar sesión</a>
-          <a href="#demo" className="bg-[#0B1418] text-white px-5 py-2.5 rounded-lg text-sm no-underline font-medium">Ver demo gratis</a>
+          <a href="/planes" className="bg-[#0B1418] text-white px-5 py-2.5 rounded-lg text-sm no-underline font-medium">Ver demo gratis</a>
         </div>
-        <a href="#demo" className="md:hidden bg-[#0B1418] text-white px-4 py-2 rounded-lg text-[13px] no-underline font-medium whitespace-nowrap">Ver demo</a>
+        <a href="/planes" className="md:hidden bg-[#0B1418] text-white px-4 py-2 rounded-lg text-[13px] no-underline font-medium whitespace-nowrap">Ver demo</a>
       </nav>
 
       {/* HERO */}
@@ -52,7 +55,7 @@ export default function Home() {
             que sí aparece.
           </h1>
           <p className="text-base md:text-[17px] text-[#0B1418]/65 leading-relaxed mb-8 max-w-[420px]">
-            Tu sitio web profesional, optimizado para Google y búsquedas con IA. Configurado una vez, funcionando para siempre.
+            Tu sitio profesional, optimizado para que te encuentren en Google y en buscadores con IA. Lo configuramos una vez, y trabaja para ti todos los días.
           </p>
           <div className="flex flex-wrap gap-3">
             <a href="/planes" className="bg-[#0B1418] text-white px-6 py-3.5 rounded-lg text-[15px] no-underline font-medium">Ver mi sitio gratis →</a>
@@ -60,7 +63,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* MINI DASHBOARD LIVE */}
         <div className="flex-1 w-full max-w-full bg-white border border-[#D8E3E1] rounded-2xl p-5 md:p-6 shadow-sm">
           <div className="flex justify-between items-center mb-5">
             <span className="text-[13px] font-medium text-[#0B1418]/60">Visibilidad en Google</span>
@@ -95,24 +97,77 @@ export default function Home() {
         </p>
       </section>
 
-      {/* COMO FUNCIONA */}
-      <section id="como-funciona" className="px-4 md:px-12 py-16 md:py-20 max-w-[1100px] mx-auto">
-        <p className="font-mono text-[13px] text-[#0E7C7B] mb-3">Cómo funciona</p>
-        <h2 className="font-display font-bold text-[26px] md:text-[32px] mb-10 max-w-[560px]">
-          De cero a publicado en una sola sesión
+      {/* VENTAJAS - explicado simple, sin tecnicismos */}
+      <section id="ventajas" className="px-4 md:px-12 py-16 md:py-24 max-w-[1100px] mx-auto">
+        <p className="font-mono text-[13px] text-[#0E7C7B] mb-3 text-center">Qué incluye</p>
+        <h2 className="font-display font-bold text-[26px] md:text-[36px] mb-4 text-center max-w-[600px] mx-auto">
+          Todo lo que necesitas para llenar tu agenda
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {[
-            { n: "1", t: "Agenda tu demo", d: "Una sesión de 30 minutos donde armamos tu sitio frente a tus ojos, con tu nombre, tu foto y tu especialidad." },
-            { n: "2", t: "Lo ves nacer en vivo", d: "Sin plantillas genéricas. Tu sitio, tus colores, tus palabras clave, optimizado para tu ciudad." },
-            { n: "3", t: "Publicado y funcionando", d: "Tu sitio queda en línea con tu dominio propio, listo para que te encuentren en Google." },
-          ].map((s) => (
-            <div key={s.n} className="bg-white border border-[#D8E3E1] rounded-2xl p-6">
-              <span className="font-mono text-[13px] text-[#0E7C7B] block mb-4">0{s.n}</span>
-              <h3 className="font-display font-bold text-lg mb-2.5">{s.t}</h3>
-              <p className="text-sm text-[#0B1418]/65 leading-relaxed">{s.d}</p>
-            </div>
-          ))}
+        <p className="text-center text-[#0B1418]/60 text-base mb-14 max-w-[520px] mx-auto">
+          Sin complicaciones técnicas. Tú atiendes pacientes, nosotros nos encargamos del resto.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+          {/* Ventaja 1: SEO / aparecer en buscadores */}
+          <div className="bg-white border border-[#D8E3E1] rounded-2xl p-7">
+            <div className="w-11 h-11 rounded-xl bg-[#EDF2F1] flex items-center justify-center text-xl mb-4">🔍</div>
+            <h3 className="font-display font-bold text-lg mb-2">Que te encuentren en Google</h3>
+            <p className="text-sm text-[#0B1418]/65 leading-relaxed">
+              Cuando alguien busca un doctor como tú —en Google o preguntándole a una IA como ChatGPT— tu nombre aparece primero. Tu sitio está hecho para eso desde el día uno.
+            </p>
+          </div>
+
+          {/* Ventaja 2: Reportes en tiempo real */}
+          <div className="bg-white border border-[#D8E3E1] rounded-2xl p-7">
+            <div className="w-11 h-11 rounded-xl bg-[#EDF2F1] flex items-center justify-center text-xl mb-4">📊</div>
+            <h3 className="font-display font-bold text-lg mb-2">Ve quién visita tu sitio</h3>
+            <p className="text-sm text-[#0B1418]/65 leading-relaxed">
+              Entra a tu panel y mira en tiempo real cuántas personas vieron tu sitio y cuántos te escribieron. Sin esperar reportes, sin complicaciones.
+            </p>
+          </div>
+
+          {/* Ventaja 3: Alcance de campañas */}
+          <div className="bg-white border border-[#D8E3E1] rounded-2xl p-7">
+            <div className="w-11 h-11 rounded-xl bg-[#EDF2F1] flex items-center justify-center text-xl mb-4">📣</div>
+            <h3 className="font-display font-bold text-lg mb-2">Anuncios que sí funcionan</h3>
+            <p className="text-sm text-[#0B1418]/65 leading-relaxed">
+              Si quieres más pacientes ya, activamos anuncios en Facebook e Instagram diseñados para tu especialidad. Tú ves cuánta gente vio tu anuncio y cuántos te escribieron.
+            </p>
+          </div>
+
+          {/* Ventaja 4: Agendamiento */}
+          <div className="bg-white border border-[#D8E3E1] rounded-2xl p-7">
+            <div className="w-11 h-11 rounded-xl bg-[#EDF2F1] flex items-center justify-center text-xl mb-4">📅</div>
+            <h3 className="font-display font-bold text-lg mb-2">Tus pacientes agendan solos</h3>
+            <p className="text-sm text-[#0B1418]/65 leading-relaxed">
+              Tu sitio tiene un enlace para agendar cita. Tus pacientes elijen el servicio, ven tus horarios libres y agendan solos — directo en tu Google Calendar.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      {/* COMO FUNCIONA */}
+      <section style={{ backgroundColor: surface }} className="px-4 md:px-12 py-16 md:py-20">
+        <div className="max-w-[1100px] mx-auto">
+          <p className="font-mono text-[13px] text-[#0E7C7B] mb-3 text-center">Cómo funciona</p>
+          <h2 className="font-display font-bold text-[26px] md:text-[32px] mb-12 text-center max-w-[560px] mx-auto">
+            De cero a publicado en una sola sesión
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {[
+              { n: "1", t: "Agenda tu demo", d: "Una sesión de 30 minutos donde armamos tu sitio frente a tus ojos, con tu nombre, tu foto y tu especialidad." },
+              { n: "2", t: "Lo ves nacer en vivo", d: "Sin plantillas genéricas. Tu sitio, tus colores, tus palabras clave, optimizado para tu ciudad." },
+              { n: "3", t: "Publicado y funcionando", d: "Tu sitio queda en línea con tu dominio propio, listo para que te encuentren en Google." },
+            ].map((s) => (
+              <div key={s.n} className="bg-white border border-[#D8E3E1] rounded-2xl p-7">
+                <span className="font-mono text-[13px] text-[#0E7C7B] block mb-4">0{s.n}</span>
+                <h3 className="font-display font-bold text-lg mb-2.5">{s.t}</h3>
+                <p className="text-sm text-[#0B1418]/65 leading-relaxed">{s.d}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -120,7 +175,7 @@ export default function Home() {
       <section id="precios" className="px-4 md:px-12 py-16 md:py-20 bg-[#0B1418]">
         <div className="max-w-[1000px] mx-auto">
           <p className="font-mono text-[13px] text-[#3DDC84] mb-3 text-center">Precios</p>
-          <h2 className="font-display font-bold text-[26px] md:text-[32px] text-white mb-10 text-center">
+          <h2 className="font-display font-bold text-[26px] md:text-[32px] text-white mb-12 text-center">
             Simple, sin sorpresas
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -132,7 +187,7 @@ export default function Home() {
               </div>
               <p className="text-white/60 text-[13px] mb-6">+ $600/mes mantenimiento</p>
               <ul className="list-none p-0 flex flex-col gap-2.5">
-                {["Sitio profesional con tu información", "Optimizado para Google e IA", "Botón de WhatsApp directo", "1 actualización mensual", "Reporte mensual de visitas"].map(f => (
+                {["Sitio profesional con tu información", "Optimizado para Google e IA", "Botón de WhatsApp directo", "Agenda de citas automática", "Reporte en tiempo real de visitas"].map(f => (
                   <li key={f} className="flex gap-2.5 text-white/85 text-[13px]">
                     <span className="text-[#3DDC84] shrink-0">✓</span> {f}
                   </li>
@@ -151,7 +206,7 @@ export default function Home() {
               </div>
               <p className="text-white/60 text-[13px] mb-6">+ inversión en publicidad (tú la manejas)</p>
               <ul className="list-none p-0 flex flex-col gap-2.5">
-                {["Campaña en Google/Facebook Ads", "Diseño de anuncios incluido", "Reportes de rendimiento en vivo", "Optimización continua de anuncios", "Soporte directo por WhatsApp"].map(f => (
+                {["Campaña en Google/Facebook Ads", "Diseño de anuncios incluido", "Reportes de alcance en vivo", "Optimización continua de anuncios", "Soporte directo por WhatsApp"].map(f => (
                   <li key={f} className="flex gap-2.5 text-white/85 text-[13px]">
                     <span className="text-[#3DDC84] shrink-0">✓</span> {f}
                   </li>
@@ -178,6 +233,7 @@ export default function Home() {
           {[
             { q: "¿Cuánto tarda en estar listo mi sitio?", a: "En una sola sesión de 30 minutos armamos tu sitio. Queda publicado en menos de 48 horas." },
             { q: "¿Necesito saber de tecnología?", a: "No. Tú solo respondes preguntas en la videollamada, nosotros nos encargamos de todo lo técnico." },
+            { q: "¿Cómo agendan mis pacientes?", a: "Tu sitio incluye un enlace para agendar. Tus pacientes elijen el servicio y horario, y la cita se agrega sola a tu Google Calendar." },
             { q: "¿Puedo cancelar cuando quiera?", a: "Sí, no hay contratos largos. Cancela cuando quieras sin penalización." },
             { q: "¿El dominio es mío?", a: "Sí, el dominio se registra a tu nombre y es completamente tuyo." },
           ].map(item => (
@@ -201,14 +257,14 @@ export default function Home() {
         <p className="text-base text-[#0B1418]/60 mb-8">
           30 minutos. Sin compromiso. Ves tu sitio nacer en vivo.
         </p>
-        <a href="https://wa.me/524441905298" target="_blank" rel="noopener noreferrer" className="bg-[#0B1418] text-white px-9 py-4 rounded-lg text-base no-underline font-medium inline-block">
-          Agendar por WhatsApp →
+        <a href="/planes" className="bg-[#0B1418] text-white px-9 py-4 rounded-lg text-base no-underline font-medium inline-block">
+          Comenzar ahora →
         </a>
       </section>
 
       {/* FOOTER */}
-      <footer className="px-4 md:px-12 py-8 border-t border-[#D8E3E1] flex flex-col sm:flex-row justify-between items-center gap-2 text-center sm:text-left">
-        <span className="font-display font-bold text-sm">Uno por Ciento</span>
+      <footer className="px-4 md:px-12 py-8 border-t border-[#D8E3E1] flex flex-col sm:flex-row justify-between items-center gap-3 text-center sm:text-left">
+        <img src="/logo-uno.png" alt="Uno por Ciento" style={{ height: "22px", width: "auto" }} />
         <span className="text-xs text-[#0B1418]/40">© 2026 · Sitios web para doctores</span>
       </footer>
 
