@@ -1,273 +1,359 @@
-"use client";
-import { useEffect, useState } from "react";
+import './home.css';
+
+export const metadata = {
+  title: 'Uno por Ciento — Sitios web para doctores',
+  description: 'SEO Autopilot y campañas de captación para doctores en México.',
+};
 
 export default function Home() {
-  const [pct, setPct] = useState(0);
-
-  useEffect(() => {
-    const target = 100;
-    const duration = 2200;
-    const start = performance.now();
-    function tick(now) {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setPct(Math.round(eased * target));
-      if (progress < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  }, []);
-
-  const ink = "#0B1418";
-  const teal = "#0E7C7B";
-  const live = "#3DDC84";
-  const surface = "#EDF2F1";
-  const border = "#D8E3E1";
-
   return (
-    <main className="font-sans bg-white text-[#0B1418] min-h-screen overflow-x-hidden">
+    <>
+<header>
+  <div className="nav">
+    <img className="logo" src="/logo-uno.png" alt="Uno por Ciento" />
+    <nav className="nav-links">
+      <a href="#pasos">Cómo funciona</a>
+      <a href="#planes-compare">SEO vs Campañas</a>
+      <a href="#precios">Precios</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a className="nav-cta" href="#precios">Agendar demo gratis</a>
+  </div>
+</header>
 
-      {/* NAV */}
-      <nav className="flex justify-between items-center px-4 md:px-12 py-4 border-b border-[#D8E3E1] sticky top-0 bg-white z-50">
-        <div className="flex items-center">
-          <img src="/logo-uno.png" alt="Uno por Ciento" style={{ height: "34px", width: "auto" }} />
-        </div>
-        <div className="hidden md:flex gap-8 items-center">
-          <a href="#ventajas" className="text-sm text-[#0B1418]/70 no-underline">Qué incluye</a>
-          <a href="#precios" className="text-sm text-[#0B1418]/70 no-underline">Precios</a>
-          <a href="#faq" className="text-sm text-[#0B1418]/70 no-underline">FAQ</a>
-          <a href="/login" className="text-sm text-[#0B1418]/70 no-underline">Iniciar sesión</a>
-          <a href="/planes" className="bg-[#0B1418] text-white px-5 py-2.5 rounded-lg text-sm no-underline font-medium">Ver demo gratis</a>
-        </div>
-        <a href="/planes" className="md:hidden bg-[#0B1418] text-white px-4 py-2 rounded-lg text-[13px] no-underline font-medium whitespace-nowrap">Ver demo</a>
-      </nav>
+<section className="hero">
+  <div className="container">
+    <div className="eyebrow-pair">
+      <span className="badge seo">SEO Autopilot</span>
+      <span className="badge ads">Campañas activas</span>
+    </div>
+    <h1>Sé parte del 1% de doctores que llena su agenda sola.</h1>
+    <p className="hero-sub">Un sitio que Google encuentra solo, día tras día — o una campaña activa que trae pacientes desde ya. Ambos con la misma agenda automática detrás.</p>
+    <div className="hero-ctas">
+      <a className="btn-primary" href="#precios">Agendar demo gratis →</a>
+      <a className="btn-secondary" href="#planes-compare">¿Cuál me conviene?</a>
+    </div>
 
-      {/* HERO */}
-      <section className="px-4 md:px-12 py-12 md:py-20 flex flex-col md:flex-row gap-10 md:gap-16 items-center max-w-[1200px] mx-auto">
-        <div className="flex-1 w-full">
-          <div className="inline-flex items-center gap-2 bg-[#EDF2F1] px-3.5 py-1.5 rounded-full mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#3DDC84] shrink-0"></span>
-            <span className="text-[11px] md:text-xs font-mono text-[#0E7C7B]">Solo el 1% de doctores aparece bien en Google</span>
+    <div className="stats-panel">
+      <div className="stat">
+        <div className="stat-label">Visibilidad en Google</div>
+        <div className="stat-value seo-c" data-suffix="%">87</div>
+      </div>
+      <div className="stat">
+        <div className="stat-label">Visitas este mes</div>
+        <div className="stat-value">342</div>
+      </div>
+      <div className="stat">
+        <div className="stat-label">Leads por campaña</div>
+        <div className="stat-value ads-c">54</div>
+      </div>
+    </div>
+
+    <div className="logos-strip">Neurólogos · Dentistas · Podólogos · Psicólogos · Dermatólogos · Pediatras</div>
+  </div>
+</section>
+
+<section className="steps" id="pasos">
+  <div className="container">
+    <div className="section-head">
+      <div className="section-eyebrow">Cómo funciona</div>
+      <h2 className="section-title">De cero a publicado en una sola sesión</h2>
+      <p className="section-sub">Sin complicaciones técnicas, sin importar el plan que elijas.</p>
+    </div>
+    <div className="steps-grid">
+      <div className="step-card">
+        <div className="step-num">01 — 30 min</div>
+        <h3>Agenda tu demo</h3>
+        <p>Una videollamada donde armamos tu sitio frente a tus ojos, con tu nombre, tu foto y tu especialidad.</p>
+      </div>
+      <div className="step-card">
+        <div className="step-num">02 — En vivo</div>
+        <h3>Eliges tu ritmo</h3>
+        <p>SEO Autopilot para crecer orgánico, Campañas si quieres pacientes desde la primera semana — o ambos.</p>
+      </div>
+      <div className="step-card">
+        <div className="step-num">03 — 48 hrs</div>
+        <h3>Publicado y buscándote pacientes</h3>
+        <p>Tu sitio queda en línea con dominio propio, agenda conectada a tu Google Calendar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="incluye">
+  <div className="container">
+    <div className="section-head">
+      <div className="section-eyebrow">Qué incluye cada plan</div>
+      <h2 className="section-title">Dos caminos, mismo destino: tu agenda llena</h2>
+    </div>
+    <div className="features-split">
+      <div className="feature-col seo-col">
+        <div className="feature-col-head"><span className="ic">🔍</span><h3>Plan Sitio Web — SEO Autopilot</h3></div>
+        <ul>
+          <li>Sitio profesional optimizado para que Google te posicione en tu ciudad</li>
+          <li>Se optimiza solo, todos los días, sin que tú hagas nada</li>
+          <li>Botón de WhatsApp directo</li>
+          <li>Agenda de citas automática a tu Calendar</li>
+          <li>Reporte de visitas en tiempo real</li>
+          <li>Crecimiento orgánico y sostenido mes a mes</li>
+        </ul>
+      </div>
+      <div className="feature-col ads-col">
+        <div className="feature-col-head"><span className="ic">📣</span><h3>Plan Campaña — Captación activa</h3></div>
+        <ul>
+          <li>Anuncios en Facebook e Instagram diseñados para tu especialidad</li>
+          <li>Pacientes nuevos desde la primera semana</li>
+          <li>Diseño de anuncios y segmentación incluidos</li>
+          <li>Agenda de citas automática a tu Calendar</li>
+          <li>Reporte de alcance y leads en tiempo real</li>
+          <li>Soporte directo por WhatsApp para ajustar la campaña</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section className="proof">
+  <div className="container">
+    <div className="dynamic-line">
+      <span className="fade1">Eso aparece en Google y en ChatGPT. Ese tráfico ya es de alguien.</span>
+      <span className="type-line">Ellos consiguen las citas.</span>
+      <span className="q">¿Y tú?</span>
+    </div>
+
+    <div className="proof-mockups">
+      <div className="mockup-card">
+        <div className="mockup-label g">🔍 Búsqueda en Google</div>
+        <div className="g-search">
+          <div className="g-bar"><span className="g-icon">🔎</span><span className="g-type">neurólogo en silao</span></div>
+          <div className="g-result winner">
+            <span className="g-tag">Tu sitio</span>
+            <div className="g-title">Dra. Nancy Moreno — Neuróloga en Silao</div>
+            <div className="g-url">dranancymoreno.com</div>
+            <div className="g-desc">Agenda tu cita en línea · Atención especializada en Silao, Guanajuato</div>
           </div>
-          <h1 className="font-display font-bold text-[34px] md:text-[48px] leading-[1.1] mb-5">
-            Sé parte del<br />
-            <span className="text-[#0E7C7B]">1% de doctores</span><br />
-            que sí aparece.
-          </h1>
-          <p className="text-base md:text-[17px] text-[#0B1418]/65 leading-relaxed mb-8 max-w-[420px]">
-            Tu sitio profesional, optimizado para que te encuentren en Google y en buscadores con IA. Lo configuramos una vez, y trabaja para ti todos los días.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <a href="/planes" className="bg-[#0B1418] text-white px-6 py-3.5 rounded-lg text-[15px] no-underline font-medium">Ver mi sitio gratis →</a>
-            <a href="#precios" className="border border-[#D8E3E1] text-[#0B1418] px-6 py-3.5 rounded-lg text-[15px] no-underline font-medium">Ver precios</a>
-          </div>
-        </div>
-
-        <div className="flex-1 w-full max-w-full bg-white border border-[#D8E3E1] rounded-2xl p-5 md:p-6 shadow-sm">
-          <div className="flex justify-between items-center mb-5">
-            <span className="text-[13px] font-medium text-[#0B1418]/60">Visibilidad en Google</span>
-            <span className="flex items-center gap-1.5 text-xs text-[#3DDC84] font-mono whitespace-nowrap">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#3DDC84] shrink-0"></span> en vivo
-            </span>
-          </div>
-          <div className="flex items-baseline gap-2 mb-2">
-            <span className="font-mono text-[40px] md:text-[44px] font-bold text-[#0B1418]">{pct}</span>
-            <span className="font-mono text-xl text-[#0E7C7B]">%</span>
-          </div>
-          <div className="w-full h-2 bg-[#EDF2F1] rounded-full overflow-hidden mb-6">
-            <div className="h-full bg-[#0E7C7B] rounded-full transition-all duration-100" style={{ width: `${pct}%` }}></div>
-          </div>
-          <div className="grid grid-cols-2 gap-3">
-            <div className="bg-[#EDF2F1] rounded-[10px] p-3.5">
-              <p className="text-[11px] text-[#0B1418]/55 mb-1.5">Visitas este mes</p>
-              <p className="font-mono text-xl font-bold">342</p>
-            </div>
-            <div className="bg-[#EDF2F1] rounded-[10px] p-3.5">
-              <p className="text-[11px] text-[#0B1418]/55 mb-1.5">Mensajes WhatsApp</p>
-              <p className="font-mono text-xl font-bold text-[#0E7C7B]">27</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* LOGOS / TRUST */}
-      <section className="px-4 md:px-12 py-7 border-t border-b border-[#D8E3E1] bg-[#EDF2F1]">
-        <p className="text-center text-[10px] md:text-xs text-[#0B1418]/50 font-mono tracking-wide leading-relaxed">
-          NEURÓLOGOS · DENTISTAS · PODÓLOGOS · PSICÓLOGOS · DERMATÓLOGOS · PEDIATRAS
-        </p>
-      </section>
-
-      {/* VENTAJAS - explicado simple, sin tecnicismos */}
-      <section id="ventajas" className="px-4 md:px-12 py-16 md:py-24 max-w-[1100px] mx-auto">
-        <p className="font-mono text-[13px] text-[#0E7C7B] mb-3 text-center">Qué incluye</p>
-        <h2 className="font-display font-bold text-[26px] md:text-[36px] mb-4 text-center max-w-[600px] mx-auto">
-          Todo lo que necesitas para llenar tu agenda
-        </h2>
-        <p className="text-center text-[#0B1418]/60 text-base mb-14 max-w-[520px] mx-auto">
-          Sin complicaciones técnicas. Tú atiendes pacientes, nosotros nos encargamos del resto.
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-
-          {/* Ventaja 1: SEO / aparecer en buscadores */}
-          <div className="bg-white border border-[#D8E3E1] rounded-2xl p-7">
-            <div className="w-11 h-11 rounded-xl bg-[#EDF2F1] flex items-center justify-center text-xl mb-4">🔍</div>
-            <h3 className="font-display font-bold text-lg mb-2">Que te encuentren en Google</h3>
-            <p className="text-sm text-[#0B1418]/65 leading-relaxed">
-              Cuando alguien busca un doctor como tú —en Google o preguntándole a una IA como ChatGPT— tu nombre aparece primero. Tu sitio está hecho para eso desde el día uno.
-            </p>
-          </div>
-
-          {/* Ventaja 2: Reportes en tiempo real */}
-          <div className="bg-white border border-[#D8E3E1] rounded-2xl p-7">
-            <div className="w-11 h-11 rounded-xl bg-[#EDF2F1] flex items-center justify-center text-xl mb-4">📊</div>
-            <h3 className="font-display font-bold text-lg mb-2">Ve quién visita tu sitio</h3>
-            <p className="text-sm text-[#0B1418]/65 leading-relaxed">
-              Entra a tu panel y mira en tiempo real cuántas personas vieron tu sitio y cuántos te escribieron. Sin esperar reportes, sin complicaciones.
-            </p>
-          </div>
-
-          {/* Ventaja 3: Alcance de campañas */}
-          <div className="bg-white border border-[#D8E3E1] rounded-2xl p-7">
-            <div className="w-11 h-11 rounded-xl bg-[#EDF2F1] flex items-center justify-center text-xl mb-4">📣</div>
-            <h3 className="font-display font-bold text-lg mb-2">Anuncios que sí funcionan</h3>
-            <p className="text-sm text-[#0B1418]/65 leading-relaxed">
-              Si quieres más pacientes ya, activamos anuncios en Facebook e Instagram diseñados para tu especialidad. Tú ves cuánta gente vio tu anuncio y cuántos te escribieron.
-            </p>
-          </div>
-
-          {/* Ventaja 4: Agendamiento */}
-          <div className="bg-white border border-[#D8E3E1] rounded-2xl p-7">
-            <div className="w-11 h-11 rounded-xl bg-[#EDF2F1] flex items-center justify-center text-xl mb-4">📅</div>
-            <h3 className="font-display font-bold text-lg mb-2">Tus pacientes agendan solos</h3>
-            <p className="text-sm text-[#0B1418]/65 leading-relaxed">
-              Tu sitio tiene un enlace para agendar cita. Tus pacientes elijen el servicio, ven tus horarios libres y agendan solos — directo en tu Google Calendar.
-            </p>
-          </div>
-
-        </div>
-      </section>
-
-      {/* COMO FUNCIONA */}
-      <section style={{ backgroundColor: surface }} className="px-4 md:px-12 py-16 md:py-20">
-        <div className="max-w-[1100px] mx-auto">
-          <p className="font-mono text-[13px] text-[#0E7C7B] mb-3 text-center">Cómo funciona</p>
-          <h2 className="font-display font-bold text-[26px] md:text-[32px] mb-12 text-center max-w-[560px] mx-auto">
-            De cero a publicado en una sola sesión
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {[
-              { n: "1", t: "Agenda tu demo", d: "Una sesión de 30 minutos donde armamos tu sitio frente a tus ojos, con tu nombre, tu foto y tu especialidad." },
-              { n: "2", t: "Lo ves nacer en vivo", d: "Sin plantillas genéricas. Tu sitio, tus colores, tus palabras clave, optimizado para tu ciudad." },
-              { n: "3", t: "Publicado y funcionando", d: "Tu sitio queda en línea con tu dominio propio, listo para que te encuentren en Google." },
-            ].map((s) => (
-              <div key={s.n} className="bg-white border border-[#D8E3E1] rounded-2xl p-7">
-                <span className="font-mono text-[13px] text-[#0E7C7B] block mb-4">0{s.n}</span>
-                <h3 className="font-display font-bold text-lg mb-2.5">{s.t}</h3>
-                <p className="text-sm text-[#0B1418]/65 leading-relaxed">{s.d}</p>
-              </div>
-            ))}
+          <div className="g-result">
+            <div className="g-title" style={{color: 'var(--ink-soft)'}}>Otra clínica en Silao</div>
+            <div className="g-url">otraclinica.mx</div>
+            <div className="g-desc">Sin agenda en línea · Solo teléfono</div>
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* PRECIOS */}
-      <section id="precios" className="px-4 md:px-12 py-16 md:py-20 bg-[#0B1418]">
-        <div className="max-w-[1000px] mx-auto">
-          <p className="font-mono text-[13px] text-[#3DDC84] mb-3 text-center">Precios</p>
-          <h2 className="font-display font-bold text-[26px] md:text-[32px] text-white mb-12 text-center">
-            Simple, sin sorpresas
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div className="bg-[#16201F] border border-[#2A3837] rounded-2xl p-7">
-              <p className="text-white/60 text-[13px] mb-2">Sitio web</p>
-              <div className="flex items-baseline gap-1.5 mb-1 flex-wrap">
-                <span className="font-mono text-4xl text-white font-bold">$300</span>
-                <span className="text-white/50 text-[13px]">dominio (pago único)</span>
-              </div>
-              <p className="text-white/60 text-[13px] mb-6">+ $600/mes mantenimiento</p>
-              <ul className="list-none p-0 flex flex-col gap-2.5">
-                {["Sitio profesional con tu información", "Optimizado para Google e IA", "Botón de WhatsApp directo", "Agenda de citas automática", "Reporte en tiempo real de visitas"].map(f => (
-                  <li key={f} className="flex gap-2.5 text-white/85 text-[13px]">
-                    <span className="text-[#3DDC84] shrink-0">✓</span> {f}
-                  </li>
-                ))}
-              </ul>
-              <a href="/planes" className="block text-center bg-white text-[#0B1418] rounded-lg py-3 text-sm font-medium no-underline mt-6">
-                Elegir este plan
-              </a>
-            </div>
-            <div className="bg-[#16201F] border-2 border-[#3DDC84] rounded-2xl p-7 relative mt-3 md:mt-0">
-              <span className="absolute -top-3 left-7 bg-[#3DDC84] text-[#0B1418] text-[11px] px-2.5 py-1 rounded-full font-bold">Más completo</span>
-              <p className="text-white/60 text-[13px] mb-2">Campaña de captación</p>
-              <div className="flex items-baseline gap-1.5 mb-1">
-                <span className="font-mono text-4xl text-white font-bold">$600</span>
-                <span className="text-white/50 text-[13px]">/mes</span>
-              </div>
-              <p className="text-white/60 text-[13px] mb-6">+ inversión en publicidad (tú la manejas)</p>
-              <ul className="list-none p-0 flex flex-col gap-2.5">
-                {["Campaña en Google/Facebook Ads", "Diseño de anuncios incluido", "Reportes de alcance en vivo", "Optimización continua de anuncios", "Soporte directo por WhatsApp"].map(f => (
-                  <li key={f} className="flex gap-2.5 text-white/85 text-[13px]">
-                    <span className="text-[#3DDC84] shrink-0">✓</span> {f}
-                  </li>
-                ))}
-              </ul>
-              <a href="/planes" className="block text-center bg-[#3DDC84] text-[#0B1418] rounded-lg py-3 text-sm font-medium no-underline mt-6">
-                Elegir este plan
-              </a>
+      <div className="mockup-card">
+        <div className="mockup-label f">📣 Anuncio en Facebook</div>
+        <div className="fb-card">
+          <div className="fb-head">
+            <div className="fb-avatar"></div>
+            <div>
+              <div className="fb-name">Dra. Nancy Moreno</div>
+              <div className="fb-sponsor">Patrocinado · Silao, Gto.</div>
             </div>
           </div>
-          <p className="text-center text-white/40 text-xs mt-6">
-            Sin contratos largos. Cancela cuando quieras.
-          </p>
+          <div className="fb-copy">¿Migrañas frecuentes? Agenda tu valoración esta semana. Cupo limitado.</div>
+          <div className="fb-image"></div>
+          <div className="fb-cta"><span>dranancymoreno.com</span><span>Agendar cita →</span></div>
         </div>
-      </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-      {/* FAQ */}
-      <section id="faq" className="px-4 md:px-12 py-16 md:py-20 max-w-[720px] mx-auto">
-        <p className="font-mono text-[13px] text-[#0E7C7B] mb-3">Preguntas frecuentes</p>
-        <h2 className="font-display font-bold text-[26px] md:text-[32px] mb-9">
-          Todo lo que necesitas saber
-        </h2>
-        <div className="flex flex-col gap-px border border-[#D8E3E1] rounded-2xl overflow-hidden">
-          {[
-            { q: "¿Cuánto tarda en estar listo mi sitio?", a: "En una sola sesión de 30 minutos armamos tu sitio. Queda publicado en menos de 48 horas." },
-            { q: "¿Necesito saber de tecnología?", a: "No. Tú solo respondes preguntas en la videollamada, nosotros nos encargamos de todo lo técnico." },
-            { q: "¿Cómo agendan mis pacientes?", a: "Tu sitio incluye un enlace para agendar. Tus pacientes elijen el servicio y horario, y la cita se agrega sola a tu Google Calendar." },
-            { q: "¿Puedo cancelar cuando quiera?", a: "Sí, no hay contratos largos. Cancela cuando quieras sin penalización." },
-            { q: "¿El dominio es mío?", a: "Sí, el dominio se registra a tu nombre y es completamente tuyo." },
-          ].map(item => (
-            <div key={item.q} className="bg-white p-5">
-              <p className="font-semibold text-[15px] mb-1.5">{item.q}</p>
-              <p className="text-sm text-[#0B1418]/60 leading-relaxed">{item.a}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+<section id="planes-compare">
+  <div className="container">
+    <div className="section-head">
+      <div className="section-eyebrow">¿Cuál plan es para ti?</div>
+      <h2 className="section-title">Sitio Web (SEO) vs. Campaña</h2>
+      <p className="section-sub">Ninguno es "mejor" — dependen de qué tan rápido quieres ver resultados y cuánto quieres invertir cada mes.</p>
+    </div>
+    <table className="plan-compare-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th className="col-seo">Sitio Web · SEO Autopilot</th>
+          <th className="col-ads">Campaña</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Costo</td>
+          <td className="c-seo">$300 único + $600/mes</td>
+          <td className="c-ads">$600/mes + inversión en ads</td>
+        </tr>
+        <tr>
+          <td>Cuándo ves resultados</td>
+          <td className="c-seo">Crecimiento gradual, semanas</td>
+          <td className="c-ads">Primeros leads, días</td>
+        </tr>
+        <tr>
+          <td>Tipo de crecimiento</td>
+          <td className="c-seo">Orgánico y permanente</td>
+          <td className="c-ads">Activo mientras inviertas</td>
+        </tr>
+        <tr>
+          <td>Ideal para</td>
+          <td className="c-seo">Construir presencia a largo plazo</td>
+          <td className="c-ads">Llenar agenda ya, lanzamientos</td>
+        </tr>
+        <tr>
+          <td>Agenda automática</td>
+          <td className="c-seo">Incluida</td>
+          <td className="c-ads">Incluida</td>
+        </tr>
+        <tr>
+          <td>Reportes en vivo</td>
+          <td className="c-seo">Visitas al sitio</td>
+          <td className="c-ads">Alcance y leads</td>
+        </tr>
+      </tbody>
+    </table>
+    <p className="compare-note">La mayoría de doctores combina ambos: SEO Autopilot como base y Campaña para acelerar en temporadas específicas.</p>
+  </div>
+</section>
 
-      {/* CTA FINAL */}
-      <section id="demo" className="px-4 md:px-12 py-16 md:py-20 text-center">
-        <div className="inline-flex items-center gap-2 bg-[#EDF2F1] px-3.5 py-1.5 rounded-full mb-6">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#3DDC84] shrink-0"></span>
-          <span className="text-xs font-mono text-[#0E7C7B]">Cupo limitado esta semana</span>
-        </div>
-        <h2 className="font-display font-bold text-[28px] md:text-[36px] mb-4">
-          Agenda tu demo gratis
-        </h2>
-        <p className="text-base text-[#0B1418]/60 mb-8">
-          30 minutos. Sin compromiso. Ves tu sitio nacer en vivo.
-        </p>
-        <a href="/planes" className="bg-[#0B1418] text-white px-9 py-4 rounded-lg text-base no-underline font-medium inline-block">
-          Comenzar ahora →
-        </a>
-      </section>
+<section className="compare" id="comparar">
+  <div className="container">
+    <div className="section-head">
+      <div className="section-eyebrow">La comparación honesta</div>
+      <h2 className="section-title">Agencia, hacerlo tú mismo, o Uno por Ciento</h2>
+      <p className="section-sub">Sin letras chiquitas. Así se compara lo que ya intentaste con lo que ofrecemos.</p>
+    </div>
+    <table className="compare-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Agencia tradicional</th>
+          <th>Hacerlo tú mismo</th>
+          <th className="winner">Uno por Ciento</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Costo mensual</td>
+          <td>$3,000 – $8,000</td>
+          <td>Tu tiempo</td>
+          <td className="winner">$600</td>
+        </tr>
+        <tr>
+          <td>SEO incluido</td>
+          <td><span className="no">Casi siempre extra</span></td>
+          <td><span className="no">Rara vez</span></td>
+          <td className="winner"><span className="yes">✓ Siempre</span></td>
+        </tr>
+        <tr>
+          <td>Agenda automática a Calendar</td>
+          <td><span className="no">✗</span></td>
+          <td><span className="no">✗</span></td>
+          <td className="winner"><span className="yes">✓</span></td>
+        </tr>
+        <tr>
+          <td>Tiempo para estar en línea</td>
+          <td>2 – 6 semanas</td>
+          <td>Semanas / meses</td>
+          <td className="winner">48 horas</td>
+        </tr>
+        <tr>
+          <td>Contrato forzoso</td>
+          <td><span className="no">Sí, común</span></td>
+          <td>—</td>
+          <td className="winner"><span className="yes">No</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p className="compare-note">Precios de agencia referenciales para México, 2026. Ajusta según tu mercado.</p>
+  </div>
+</section>
 
-      {/* FOOTER */}
-      <footer className="px-4 md:px-12 py-8 border-t border-[#D8E3E1] flex flex-col sm:flex-row justify-between items-center gap-3 text-center sm:text-left">
-        <img src="/logo-uno.png" alt="Uno por Ciento" style={{ height: "22px", width: "auto" }} />
-        <span className="text-xs text-[#0B1418]/40">© 2026 · Sitios web para doctores</span>
-      </footer>
+<section id="precios">
+  <div className="container">
+    <div className="section-head">
+      <div className="section-eyebrow">Precios</div>
+      <h2 className="section-title">Simple, sin sorpresas</h2>
+    </div>
+    <div className="pricing-grid">
+      <div className="price-card seo-card">
+        <h3>Sitio web</h3>
+        <div className="price-amount">$300</div>
+        <div className="price-period">dominio (pago único) + $600/mes mantenimiento</div>
+        <ul className="price-list">
+          <li>Sitio profesional con tu información</li>
+          <li>SEO Autopilot — optimizado para Google e IA</li>
+          <li>Botón de WhatsApp directo</li>
+          <li>Agenda de citas automática</li>
+          <li>Reporte en tiempo real de visitas</li>
+        </ul>
+        <a className="price-btn" href="/planes">Elegir Sitio Web</a>
+      </div>
+      <div className="price-card ads-card">
+        <h3>Campaña de captación</h3>
+        <div className="price-amount">$600</div>
+        <div className="price-period">/mes + inversión en publicidad (tú la manejas)</div>
+        <ul className="price-list">
+          <li>Anuncios en Facebook/Instagram diseñados para tu especialidad</li>
+          <li>Segmentación por ciudad y edad</li>
+          <li>Agenda de citas automática</li>
+          <li>Reportes de alcance y leads en vivo</li>
+          <li>Soporte directo por WhatsApp</li>
+        </ul>
+        <a className="price-btn" href="/planes">Elegir Campaña</a>
+      </div>
+    </div>
+    <p className="pricing-note">Sin contratos largos. Cancela cuando quieras. ¿Quieres ambos planes? Escríbenos y armamos un paquete combinado.</p>
+  </div>
+</section>
 
-    </main>
+<section id="faq">
+  <div className="container">
+    <div className="section-head">
+      <div className="section-eyebrow">Preguntas frecuentes</div>
+      <h2 className="section-title">Todo lo que necesitas saber</h2>
+    </div>
+    <div className="faq-list">
+      <details className="faq-item">
+        <summary className="faq-q">¿Cuál plan me conviene, Sitio Web o Campaña? <span className="plus">+</span></summary>
+        <p className="faq-a">Depende de tu urgencia. Si puedes esperar unas semanas para un crecimiento orgánico y permanente, empieza con Sitio Web. Si necesitas pacientes ya, la Campaña te da resultados en días. Muchos doctores usan ambos.</p>
+      </details>
+      <details className="faq-item">
+        <summary className="faq-q">¿Qué es el SEO Autopilot? <span className="plus">+</span></summary>
+        <p className="faq-a">Es que tu sitio se optimiza solo para que Google te muestre cuando alguien busca un doctor como tú en tu ciudad — sin que tengas que aprender nada de tecnología.</p>
+      </details>
+      <details className="faq-item">
+        <summary className="faq-q">¿Cuánto tarda en estar listo mi sitio? <span className="plus">+</span></summary>
+        <p className="faq-a">En una sola sesión de 30 minutos armamos tu sitio. Queda publicado en menos de 48 horas, sin importar el plan que elijas.</p>
+      </details>
+      <details className="faq-item">
+        <summary className="faq-q">¿Cómo agendan mis pacientes? <span className="plus">+</span></summary>
+        <p className="faq-a">Tu sitio incluye un enlace para agendar. Eligen servicio y horario, y la cita se agrega sola a tu Google Calendar — igual en ambos planes.</p>
+      </details>
+      <details className="faq-item">
+        <summary className="faq-q">¿Puedo cancelar cuando quiera? <span className="plus">+</span></summary>
+        <p className="faq-a">Sí, no hay contratos largos. Cancela cuando quieras sin penalización.</p>
+      </details>
+      <details className="faq-item">
+        <summary className="faq-q">¿El dominio es mío? <span className="plus">+</span></summary>
+        <p className="faq-a">Sí, el dominio se registra a tu nombre y es completamente tuyo.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div className="container">
+    <div className="final-cta">
+      <div className="section-eyebrow" style={{color: 'rgba(255,255,255,0.5)'}}>Cupo limitado esta semana</div>
+      <h2>Agenda tu demo gratis</h2>
+      <p>30 minutos. Sin compromiso. Ves tu sitio nacer en vivo.</p>
+      <a className="btn-primary" href="#precios">Agendar demo gratis →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div className="container">
+    <img src="/logo-uno.png" alt="Uno por Ciento" />
+    Uno por Ciento © 2026 · Sitios web para doctores
+  </div>
+</footer>
+    </>
   );
 }
