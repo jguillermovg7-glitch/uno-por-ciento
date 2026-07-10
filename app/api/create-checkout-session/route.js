@@ -14,6 +14,7 @@ export async function POST(request) {
       metadata: { userId, plan },
       success_url: `${origin}/exito?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/preview`,
+      allow_promotion_codes: true,
     };
 
     if (plan === "sitio") {
