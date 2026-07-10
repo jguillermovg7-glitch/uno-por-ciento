@@ -30,6 +30,7 @@ export async function POST(request) {
         .from("doctores")
         .update({
           estado: "activo",
+          plan_type: plan,
           stripe_customer_id: session.customer,
           stripe_subscription_id: session.subscription,
         })

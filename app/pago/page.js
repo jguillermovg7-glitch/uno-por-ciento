@@ -75,7 +75,37 @@ export default function PagoPage() {
     );
   }
 
-  const isPlanSitio = doctor.plan === "sitio";
+  const PLAN_INFO = {
+    sitio: {
+      titulo: "Sitio web profesional",
+      lineas: [
+        { label: "Dominio (pago único)", precio: "$300 MXN" },
+        { label: "Mantenimiento mensual", precio: "$600 MXN/mes" },
+      ],
+      hoy: "$900 MXN ($300 dominio + $600 primer mes)",
+      despues: "$600 MXN cada mes",
+    },
+    campana: {
+      titulo: "Campaña de captación",
+      lineas: [
+        { label: "Campaña de captación", precio: "$600 MXN/mes" },
+      ],
+      hoy: "$600 MXN",
+      despues: "$600 MXN cada mes",
+    },
+    combo: {
+      titulo: "Sitio + Campaña",
+      lineas: [
+        { label: "Dominio (pago único)", precio: "$300 MXN" },
+        { label: "Mantenimiento mensual", precio: "$600 MXN/mes" },
+        { label: "Campaña de captación", precio: "$600 MXN/mes" },
+      ],
+      hoy: "$1,500 MXN ($300 dominio + $600 mantenimiento + $600 campaña)",
+      despues: "$1,200 MXN cada mes",
+    },
+  };
+
+  const planInfo = PLAN_INFO[doctor.plan] || PLAN_INFO.campana;
 
   return (
     <main style={{ backgroundColor: "#FFFFFF" }} className="min-h-screen px-4 flex items-center justify-center">
@@ -87,32 +117,21 @@ export default function PagoPage() {
         <div style={{ borderColor: border }} className="border rounded-2xl p-7">
           <p style={{ color: teal }} className="font-mono text-[13px] mb-2">Confirmar pago</p>
           <h1 style={{ color: ink }} className="font-display font-bold text-xl mb-6">
-            {isPlanSitio ? "Sitio web profesional" : "Campaña de captación"}
+            {planInfo.titulo}
           </h1>
 
           <div className="flex flex-col gap-3 mb-6">
-            {isPlanSitio ? (
-              <>
-                <div className="flex justify-between items-center">
-                  <span style={{ color: ink, opacity: 0.7 }} className="text-sm">Dominio (pago único)</span>
-                  <span style={{ color: ink }} className="font-mono text-sm font-bold">$300 MXN</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span style={{ color: ink, opacity: 0.7 }} className="text-sm">Mantenimiento mensual</span>
-                  <span style={{ color: ink }} className="font-mono text-sm font-bold">$600 MXN/mes</span>
-                </div>
-              </>
-            ) : (
-              <div className="flex justify-between items-center">
-                <span style={{ color: ink, opacity: 0.7 }} className="text-sm">Campaña de captación</span>
-                <span style={{ color: ink }} className="font-mono text-sm font-bold">$600 MXN/mes</span>
+            {planInfo.lineas.map((linea) => (
+              <div key={linea.label} className="flex justify-between items-center">
+                <span style={{ color: ink, opacity: 0.7 }} className="text-sm">{linea.label}</span>
+                <span style={{ color: ink }} className="font-mono text-sm font-bold">{linea.precio}</span>
               </div>
-            )}
+            ))}
           </div>
 
           <div style={{ borderColor: border }} className="border-t pt-4 mb-6">
             <p style={{ color: ink, opacity: 0.5 }} className="text-xs">
-              Se te cobrará hoy{isPlanSitio ? " $900 MXN ($300 dominio + $600 primer mes)" : " $600 MXN"} y después $600 MXN cada mes. Puedes cancelar cuando quieras.
+              Se te cobrará hoy {planInfo.hoy} y después {planInfo.despues}. Puedes cancelar cuando quieras.
             </p>
           </div>
 

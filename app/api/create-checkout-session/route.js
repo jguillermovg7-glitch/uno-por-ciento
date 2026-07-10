@@ -8,36 +8,46 @@ export async function POST(request) {
     const { plan, email, userId } = await request.json();
 
     const origin = request.headers.get("origin");
-    let line_items = [];
+    let sessionConfig = {
+      payment_method_types: ["card"],
+      customer_email: email,
+      metadata: { userId, plan },
+      success_url: `${origin}/exito?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/preview`,
+    };
 
     if (plan === "sitio") {
-      // Mezclamos un precio recurrente (mantenimiento) y uno de pago único (dominio)
-      // en la misma sesión de modo "subscription". Stripe cobra el de pago único
-      // solo en la primera factura, y el recurrente se repite cada mes.
-      line_items = [
-        { price: process.env.STRIPE_PRICE_SITIO_MANTENIMIENTO, quantity: 1 },
+      sessionConfig.mode = "subscription";
+      sessionConfig.line_items = [
         { price: process.env.STRIPE_PRICE_SITIO_DOMINIO, quantity: 1 },
+        { price: process.env.STRIPE_PRICE_SITIO_MANTENIMIENTO, quantity: 1 },
       ];
+      sessionConfig.subscription_data = {
+        metadata: { userId, plan },
+      };
     } else if (plan === "campana") {
-      line_items = [
+      sessionConfig.mode = "subscription";
+      sessionConfig.line_items = [
         { price: process.env.STRIPE_PRICE_CAMPANA, quantity: 1 },
       ];
+      sessionConfig.subscription_data = {
+        metadata: { userId, plan },
+      };
+    } else if (plan === "combo") {
+      sessionConfig.mode = "subscription";
+      sessionConfig.line_items = [
+        { price: process.env.STRIPE_PRICE_SITIO_DOMINIO, quantity: 1 },
+        { price: process.env.STRIPE_PRICE_SITIO_MANTENIMIENTO, quantity: 1 },
+        { price: process.env.STRIPE_PRICE_CAMPANA, quantity: 1 },
+      ];
+      sessionConfig.subscription_data = {
+        metadata: { userId, plan },
+      };
     } else {
       return NextResponse.json({ error: "Plan inválido" }, { status: 400 });
     }
 
-    const session = await stripe.checkout.sessions.create({
-      mode: "subscription",
-      payment_method_types: ["card"],
-      line_items,
-      customer_email: email,
-      metadata: { userId, plan },
-      subscription_data: {
-        metadata: { userId, plan },
-      },
-      success_url: `${origin}/exito?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/preview`,
-    });
+    const session = await stripe.checkout.sessions.create(sessionConfig);
 
     return NextResponse.json({ url: session.url });
   } catch (err) {
