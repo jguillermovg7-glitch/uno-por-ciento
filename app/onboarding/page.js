@@ -32,12 +32,31 @@ export default function OnboardingPage() {
     const savedPlan = localStorage.getItem("plan_seleccionado") || "sitio";
     setPlan(savedPlan);
 
-    supabase.auth.getUser().then(({ data }) => {
+    supabase.auth.getUser().then(async ({ data }) => {
       if (!data.user) {
         router.push("/login?next=/onboarding");
-      } else {
-        setUser(data.user);
+        return;
       }
+
+      // Checa si ya tiene registro en doctores
+      const { data: doctor } = await supabase
+        .from("doctores")
+        .select("estado")
+        .eq("user_id", data.user.id)
+        .single();
+
+      if (doctor) {
+        // Ya existe — redirige según su estado
+        if (doctor.estado === "activo") {
+          router.push("/dashboard");
+        } else {
+          router.push("/preview");
+        }
+        return;
+      }
+
+      // No existe — es nuevo, muestra el formulario
+      setUser(data.user);
       setLoading(false);
     });
   }, []);
@@ -91,13 +110,13 @@ export default function OnboardingPage() {
         </div>
 
         <p style={{ color: teal }} className="font-mono text-[13px] text-center mb-2">
-          Plan: {plan === "sitio" ? "Sitio web profesional" : "Campaña de captación"}
+          Plan: {plan === "sitio" ? "Sitio web profesional" : plan === "combo" ? "Sitio + Campaña" : "Campaña de captación"}
         </p>
         <h1 style={{ color: ink }} className="font-display font-bold text-2xl md:text-[28px] text-center mb-2">
           Cuéntanos sobre ti
         </h1>
         <p style={{ color: ink, opacity: 0.6 }} className="text-center text-sm mb-10">
-          Con esto armamos tu {plan === "sitio" ? "sitio" : "campaña"}. Tarda menos de 5 minutos.
+          Con esto armamos tu {plan === "sitio" ? "sitio" : plan === "combo" ? "sitio y campaña" : "campaña"}. Tarda menos de 5 minutos.
         </p>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
@@ -139,7 +158,7 @@ export default function OnboardingPage() {
             </div>
           </div>
 
-          {plan === "campana" && (
+          {(plan === "campana" || plan === "combo") && (
             <div>
               <p style={labelStyle} className="font-display font-bold text-sm mb-3">Presupuesto de publicidad</p>
               <input name="presupuesto_ads" type="number" placeholder="Presupuesto diario en pesos" value={form.presupuesto_ads} onChange={handleChange} style={inputStyle} className="border rounded-lg px-4 py-3 text-sm outline-none" />
