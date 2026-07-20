@@ -365,7 +365,7 @@ export default function Home() {
       <h2>Agenda tu demo gratis</h2>
       <p>30 minutos. Sin compromiso. Ves tu sitio nacer en vivo.</p>
       <a className="btn-primary" href="/agendar?doctor=33698a5d-d6bb-4700-8bb1-3fbac802c987">Agendar demo gratis →</a>
-      <a className="btn-secondary" href="/planes" style={{marginTop:"12px", display:"inline-block"}}>Elegir mi plan →</a>
+      <a href="/planes" style={{marginTop:"12px", display:"inline-block", padding:"12px 24px", borderRadius:"999px", border:"2px solid #fff", color:"#fff", fontSize:"14px", fontWeight:"700", fontFamily:"var(--font-display)"}}>Elegir mi plan →</a>
     </div>
   </div>
 </section>
