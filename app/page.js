@@ -31,7 +31,8 @@ export default function Home() {
     <h1>Sé parte del 1% de doctores que llena su agenda sola.</h1>
     <p className="hero-sub">Un sitio que Google encuentra solo, día tras día — o una campaña activa que trae pacientes desde ya. Ambos con la misma agenda automática detrás.</p>
     <div className="hero-ctas">
-      <a className="btn-primary" href="#precios">Agendar demo gratis →</a>
+      <a className="btn-primary" href="/agendar?doctor=33698a5d-d6bb-4700-8bb1-3fbac802c987">Agendar demo gratis →</a>
+      <a className="btn-secondary" href="/planes">Elegir mi plan →</a>
       <a className="btn-secondary" href="#planes-compare">¿Cuál me conviene?</a>
     </div>
 
@@ -344,7 +345,8 @@ export default function Home() {
       <div className="section-eyebrow" style={{color: 'rgba(255,255,255,0.5)'}}>Cupo limitado esta semana</div>
       <h2>Agenda tu demo gratis</h2>
       <p>30 minutos. Sin compromiso. Ves tu sitio nacer en vivo.</p>
-      <a className="btn-primary" href="#precios">Agendar demo gratis →</a>
+      <a className="btn-primary" href="/agendar?doctor=33698a5d-d6bb-4700-8bb1-3fbac802c987">Agendar demo gratis →</a>
+      <a className="btn-secondary" href="/planes">Elegir mi plan →</a>
     </div>
   </div>
 </section>
