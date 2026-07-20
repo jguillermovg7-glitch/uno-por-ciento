@@ -18,7 +18,7 @@ export default function Home() {
       <a href="#faq">FAQ</a>
     </nav>
     <a className="nav-cta-secondary" href="/login">Iniciar sesión</a>
-    <a className="nav-cta" href="#precios">Agendar demo gratis</a>
+    <a className="nav-cta" href="/agendar?doctor=33698a5d-d6bb-4700-8bb1-3fbac802c987">Agendar demo gratis</a>
   </div>
 </header>
 
@@ -33,7 +33,6 @@ export default function Home() {
     <div className="hero-ctas">
       <a className="btn-primary" href="/agendar?doctor=33698a5d-d6bb-4700-8bb1-3fbac802c987">Agendar demo gratis →</a>
       <a className="btn-secondary" href="/planes">Elegir mi plan →</a>
-      <a className="btn-secondary" href="#planes-compare">¿Cuál me conviene?</a>
     </div>
 
     <div className="stats-panel">
@@ -79,6 +78,10 @@ export default function Home() {
         <p>Tu sitio queda en línea con dominio propio, agenda conectada a tu Google Calendar.</p>
       </div>
     </div>
+    <div style={{textAlign:"center", marginTop:"40px"}} className="hero-ctas">
+      <a className="btn-primary" href="/agendar?doctor=33698a5d-d6bb-4700-8bb1-3fbac802c987">Agendar demo gratis →</a>
+      <a className="btn-secondary" href="/planes">Elegir mi plan →</a>
+    </div>
   </div>
 </section>
 
@@ -111,6 +114,10 @@ export default function Home() {
           <li>Soporte directo por WhatsApp para ajustar la campaña</li>
         </ul>
       </div>
+    </div>
+    <div style={{textAlign:"center", marginTop:"40px"}} className="hero-ctas">
+      <a className="btn-primary" href="/agendar?doctor=33698a5d-d6bb-4700-8bb1-3fbac802c987">Agendar demo gratis →</a>
+      <a className="btn-secondary" href="/planes">Elegir mi plan →</a>
     </div>
   </div>
 </section>
@@ -210,6 +217,10 @@ export default function Home() {
       </tbody>
     </table>
     <p className="compare-note">La mayoría de doctores combina ambos: SEO Autopilot como base y Campaña para acelerar en temporadas específicas.</p>
+    <div style={{textAlign:"center", marginTop:"40px"}} className="hero-ctas">
+      <a className="btn-primary" href="/agendar?doctor=33698a5d-d6bb-4700-8bb1-3fbac802c987">Agendar demo gratis →</a>
+      <a className="btn-secondary" href="/planes">Elegir mi plan →</a>
+    </div>
   </div>
 </section>
 
@@ -263,6 +274,10 @@ export default function Home() {
       </tbody>
     </table>
     <p className="compare-note">Precios de agencia referenciales para México, 2026. Ajusta según tu mercado.</p>
+    <div style={{textAlign:"center", marginTop:"40px"}} className="hero-ctas">
+      <a className="btn-primary" href="/agendar?doctor=33698a5d-d6bb-4700-8bb1-3fbac802c987">Agendar demo gratis →</a>
+      <a className="btn-secondary" href="/planes">Elegir mi plan →</a>
+    </div>
   </div>
 </section>
 
@@ -336,6 +351,10 @@ export default function Home() {
         <p className="faq-a">Sí, el dominio se registra a tu nombre y es completamente tuyo.</p>
       </details>
     </div>
+    <div style={{textAlign:"center", marginTop:"40px"}} className="hero-ctas">
+      <a className="btn-primary" href="/agendar?doctor=33698a5d-d6bb-4700-8bb1-3fbac802c987">Agendar demo gratis →</a>
+      <a className="btn-secondary" href="/planes">Elegir mi plan →</a>
+    </div>
   </div>
 </section>
 
@@ -346,7 +365,7 @@ export default function Home() {
       <h2>Agenda tu demo gratis</h2>
       <p>30 minutos. Sin compromiso. Ves tu sitio nacer en vivo.</p>
       <a className="btn-primary" href="/agendar?doctor=33698a5d-d6bb-4700-8bb1-3fbac802c987">Agendar demo gratis →</a>
-      <a className="btn-secondary" href="/planes">Elegir mi plan →</a>
+      <a className="btn-secondary" href="/planes" style={{marginTop:"12px", display:"inline-block"}}>Elegir mi plan →</a>
     </div>
   </div>
 </section>
