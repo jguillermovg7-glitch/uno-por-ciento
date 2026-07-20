@@ -17,7 +17,7 @@ export default function Home() {
       <a href="#precios">Precios</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <a href="/login" style={{marginRight:"12px", color:"#0B1418", fontSize:"14px", fontWeight:"500", opacity:"0.7"}}>Iniciar sesión</a>
+    <a className="nav-cta-secondary" href="/login">Iniciar sesión</a>
     <a className="nav-cta" href="#precios">Agendar demo gratis</a>
   </div>
 </header>
