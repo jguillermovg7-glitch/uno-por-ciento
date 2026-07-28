@@ -36,6 +36,22 @@ export async function GET(request) {
       return NextResponse.redirect(`${origin}/dashboard/servicios?calendar=error`);
     }
 
+    // CRÍTICO: Google solo manda refresh_token la primera vez.
+    // Si no viene, NO sobreescribir el que ya existe en Supabase.
+    if (!tokens.refresh_token) {
+      console.warn("Google no mandó refresh_token — probablemente ya fue autorizado antes.");
+      // Solo actualizar access_token y marcar conectado, pero NO tocar refresh_token
+      await supabaseAdmin
+        .from("doctores")
+        .update({
+          google_calendar_access_token: tokens.access_token,
+          google_calendar_connected: true,
+        })
+        .eq("id", doctorId);
+
+      return NextResponse.redirect(`${origin}/dashboard/servicios?calendar=success`);
+    }
+
     await supabaseAdmin
       .from("doctores")
       .update({
