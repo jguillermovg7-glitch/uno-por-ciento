@@ -370,6 +370,12 @@ export default function Home() {
   </div>
 </section>
 
+<section style={{padding:"24px 0", borderTop:"1px solid #E5EBEA", textAlign:"center"}}>
+  <div className="container">
+    <p style={{color:"#666", fontSize:"0.85rem"}}>Uno por Ciento conecta con Google Calendar para gestionar automáticamente las citas de los doctores. Plataforma de sitios web y captación de pacientes para profesionales de la salud en México.</p>
+  </div>
+</section>
+
 <footer>
   <div className="container">
     <img src="/logo-uno.png" alt="Uno por Ciento" />
