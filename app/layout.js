@@ -1,6 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
+  verification: { google: "cdRfeeGl2DkogCL3T0o5CuCOaltir9HdivmNsBwfKKI" },
   title: "Uno por Ciento - Sitios web para doctores",
   description: "Sé parte del 1% de doctores que sí aparece en Google. Sitios web profesionales para doctores en 30 minutos.",
 };
