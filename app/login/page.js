@@ -116,6 +116,14 @@ function LoginForm() {
               className="border rounded-lg px-4 py-3 text-sm outline-none focus:border-[#0E7C7B]"
             />
 
+            {mode === "login" && (
+              <div className="text-right -mt-1">
+                <a href="/forgot-password" style={{ color: "#0E7C7B" }} className="text-[13px] underline">
+                  ¿Olvidaste tu contraseña?
+                </a>
+              </div>
+            )}
+
             {error && <p style={{ color: "#D85A30" }} className="text-[13px]">{error}</p>}
             {message && <p style={{ color: "#1D9E75" }} className="text-[13px]">{message}</p>}
 
