@@ -220,7 +220,7 @@ export default function DashboardPage() {
                 style={{ backgroundColor: "#25D366", color: "#fff" }}
                 className="rounded-lg px-5 py-2.5 text-xs font-medium whitespace-nowrap text-center no-underline"
               >
-                💬 Compartir
+                Compartir
               </a>
             </div>
           </div>
