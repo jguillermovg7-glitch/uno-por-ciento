@@ -12,6 +12,10 @@ export default function DashboardPage() {
   const [analyticsLoading, setAnalyticsLoading] = useState(false);
   const [campanaMetricas, setCampanaMetricas] = useState(null);
   const [linkCopiado, setLinkCopiado] = useState(false);
+  const [upgradeLoading, setUpgradeLoading] = useState(false);
+  const [upgradeMsg, setUpgradeMsg] = useState("");
+
+  const supabaseClient = createClient();
 
   useEffect(() => {
     async function load() {
@@ -53,7 +57,7 @@ export default function DashboardPage() {
         setAnalyticsLoading(false);
       }
 
-      if (data.plan === "campana") {
+      if (data.plan === "campana" || data.plan === "completo") {
         const { data: metricas } = await supabase
           .from("metricas_campana")
           .select("*")
@@ -76,6 +80,32 @@ export default function DashboardPage() {
   async function handleLogout() {
     await supabase.auth.signOut();
     router.push("/");
+  }
+
+  async function handleUpgrade() {
+    setUpgradeLoading(true);
+    setUpgradeMsg("");
+    try {
+      const res = await fetch("/api/upgrade-plan", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          doctorId: doctor.id,
+          stripeCustomerId: doctor.stripe_customer_id,
+          planActual: doctor.plan,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setUpgradeMsg("¡Listo! Tu plan fue actualizado a Plan Completo.");
+        setDoctor((prev) => ({ ...prev, plan: "completo" }));
+      } else {
+        setUpgradeMsg("Ocurrió un error: " + (data.error || "intenta de nuevo"));
+      }
+    } catch (err) {
+      setUpgradeMsg("Error de conexión. Intenta de nuevo.");
+    }
+    setUpgradeLoading(false);
   }
 
   const [portalLoading, setPortalLoading] = useState(false);
@@ -115,6 +145,19 @@ export default function DashboardPage() {
     );
   }
 
+  const planLabel =
+    doctor.plan === "sitio" ? "Sitio web profesional" :
+    doctor.plan === "campana" ? "Campaña de captación" :
+    "Plan Completo";
+
+  const planComplementario =
+    doctor.plan === "sitio" ? "Campaña de captación" :
+    doctor.plan === "campana" ? "Sitio web profesional" : null;
+
+  const precioUpgrade =
+    doctor.plan === "sitio" ? "+$600/mes" :
+    doctor.plan === "campana" ? "+$900 único + $600/mes" : null;
+
   return (
     <main style={{ backgroundColor: "#FFFFFF" }} className="min-h-screen">
       <nav style={{ borderColor: border }} className="flex justify-between items-center px-4 md:px-12 py-4 border-b">
@@ -130,13 +173,15 @@ export default function DashboardPage() {
           Hola, {doctor.nombre}
         </h1>
         <p style={{ color: ink, opacity: 0.6 }} className="text-sm mb-10">
-          Plan: {doctor.plan === "sitio" ? "Sitio web profesional" : "Campaña de captación"}
+          Plan: {planLabel}
         </p>
 
         <div style={{ backgroundColor: surface, borderColor: border }} className="border rounded-2xl p-6 mb-8">
           <div className="flex items-center gap-2 mb-3">
             <span style={{ width: "8px", height: "8px", borderRadius: "50%", backgroundColor: live }}></span>
-            <p style={{ color: ink }} className="font-display font-bold text-sm">Estamos construyendo tu {doctor.plan === "sitio" ? "sitio" : "campaña"}</p>
+            <p style={{ color: ink }} className="font-display font-bold text-sm">
+              Estamos construyendo tu {doctor.plan === "sitio" ? "sitio" : "campaña"}
+            </p>
           </div>
           <p style={{ color: ink, opacity: 0.6 }} className="text-sm">
             Te avisaremos por WhatsApp al {doctor.whatsapp} en cuanto esté listo. Normalmente toma menos de 48 horas.
@@ -168,7 +213,7 @@ export default function DashboardPage() {
               >
                 {linkCopiado ? "¡Copiado! ✓" : "Copiar enlace"}
               </button>
-              <a
+              
                 href={`https://wa.me/52${doctor.whatsapp?.replace(/\D/g, "")}?text=${encodeURIComponent(`Aquí puedes agendar tu cita: https://uno-por-ciento.vercel.app/agendar?doctor=${doctor.id}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -181,8 +226,8 @@ export default function DashboardPage() {
           </div>
         )}
 
-        {doctor.plan === "sitio" ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {(doctor.plan === "sitio" || doctor.plan === "completo") && (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             <div style={{ borderColor: border }} className="border rounded-2xl p-5">
               <p style={{ color: ink, opacity: 0.5 }} className="text-xs mb-2">Visitas (30 días)</p>
               <p style={{ color: ink }} className="font-mono text-2xl font-bold">
@@ -196,14 +241,16 @@ export default function DashboardPage() {
               </p>
             </div>
             <div style={{ borderColor: border }} className="border rounded-2xl p-5">
-              <p style={{ color: ink, opacity: 0.5 }} className="text-xs mb-2">Estado</p>
+              <p style={{ color: ink, opacity: 0.5 }} className="text-xs mb-2">Estado sitio</p>
               <p style={{ color: teal }} className="font-mono text-sm font-bold">
                 {doctor.ga4_property_id ? "Activo" : "En construcción"}
               </p>
             </div>
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        )}
+
+        {(doctor.plan === "campana" || doctor.plan === "completo") && (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             <div style={{ borderColor: border }} className="border rounded-2xl p-5">
               <p style={{ color: ink, opacity: 0.5 }} className="text-xs mb-2">Alcance total</p>
               <p style={{ color: ink }} className="font-mono text-2xl font-bold">
@@ -225,14 +272,41 @@ export default function DashboardPage() {
           </div>
         )}
 
-        <div style={{ borderColor: border }} className="border rounded-2xl p-6 mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        {planComplementario && (
+          <div style={{ borderColor: teal, backgroundColor: "#F4FAF9" }} className="border rounded-2xl p-6 mt-2 mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+              <p style={{ color: teal }} className="font-mono text-[11px] mb-1">MEJORA TU PLAN</p>
+              <p style={{ color: ink }} className="font-display font-bold text-sm mb-1">
+                Agrega {planComplementario}
+              </p>
+              <p style={{ color: ink, opacity: 0.6 }} className="text-[13px]">
+                {precioUpgrade} — se cobra la diferencia proporcional del mes en curso.
+              </p>
+              {upgradeMsg && (
+                <p style={{ color: upgradeMsg.includes("error") || upgradeMsg.includes("Error") ? "#D85A30" : "#1D9E75" }} className="text-[13px] mt-2">
+                  {upgradeMsg}
+                </p>
+              )}
+            </div>
+            <button
+              onClick={handleUpgrade}
+              disabled={upgradeLoading}
+              style={{ backgroundColor: teal, color: "#fff" }}
+              className="rounded-lg px-5 py-2.5 text-sm font-medium whitespace-nowrap disabled:opacity-50"
+            >
+              {upgradeLoading ? "Procesando..." : `Agregar ${planComplementario} →`}
+            </button>
+          </div>
+        )}
+
+        <div style={{ borderColor: border }} className="border rounded-2xl p-6 mt-2 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
             <p style={{ color: ink }} className="font-display font-bold text-sm mb-1">Tus servicios</p>
             <p style={{ color: ink, opacity: 0.6 }} className="text-[13px]">
               Agrega los servicios que ofreces para que tus pacientes puedan agendar.
             </p>
           </div>
-          <a
+          
             href="/dashboard/servicios"
             style={{ backgroundColor: teal, color: "#fff" }}
             className="rounded-lg px-5 py-2.5 text-sm font-medium whitespace-nowrap no-underline"
@@ -249,7 +323,7 @@ export default function DashboardPage() {
                 Revisa y contacta a los pacientes que agendaron contigo.
               </p>
             </div>
-            <a
+            
               href="/dashboard/citas"
               style={{ borderColor: border, color: ink }}
               className="border rounded-lg px-5 py-2.5 text-sm font-medium whitespace-nowrap no-underline"
