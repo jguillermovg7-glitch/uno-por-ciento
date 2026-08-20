@@ -42,7 +42,7 @@ export default function DashboardPage() {
       setDoctor(data);
       setLoading(false);
 
-      if (data.plan === "sitio" && data.ga4_property_id) {
+      if ((data.plan === "sitio" || data.plan === "completo") && data.ga4_property_id) {
         setAnalyticsLoading(true);
         try {
           const res = await fetch(`/api/analytics?propertyId=${data.ga4_property_id}`);
@@ -64,11 +64,14 @@ export default function DashboardPage() {
           .order("fecha", { ascending: false });
 
         if (metricas && metricas.length > 0) {
-          const totales = metricas.reduce((acc, m) => ({
-            alcance: acc.alcance + (m.alcance || 0),
-            mensajes: acc.mensajes + (m.mensajes || 0),
-            gasto: acc.gasto + (parseFloat(m.gasto) || 0),
-          }), { alcance: 0, mensajes: 0, gasto: 0 });
+          const totales = metricas.reduce(
+            (acc, m) => ({
+              alcance: acc.alcance + (m.alcance || 0),
+              mensajes: acc.mensajes + (m.mensajes || 0),
+              gasto: acc.gasto + (parseFloat(m.gasto) || 0),
+            }),
+            { alcance: 0, mensajes: 0, gasto: 0 }
+          );
           setCampanaMetricas(totales);
         }
       }
@@ -194,14 +197,14 @@ export default function DashboardPage() {
             <div className="flex flex-col sm:flex-row gap-2">
               <input
                 readOnly
-                value={`https://uno-por-ciento.vercel.app/agendar?doctor=${doctor.id}`}
+                value={"https://uno-por-ciento.vercel.app/agendar?doctor=" + doctor.id}
                 onClick={(e) => e.target.select()}
                 style={{ borderColor: border, color: ink, backgroundColor: "#fff" }}
                 className="border rounded-lg px-3 py-2.5 text-xs flex-1 outline-none"
               />
               <button
                 onClick={() => {
-                  navigator.clipboard.writeText(`https://uno-por-ciento.vercel.app/agendar?doctor=${doctor.id}`);
+                  navigator.clipboard.writeText("https://uno-por-ciento.vercel.app/agendar?doctor=" + doctor.id);
                   setLinkCopiado(true);
                   setTimeout(() => setLinkCopiado(false), 2000);
                 }}
@@ -210,8 +213,8 @@ export default function DashboardPage() {
               >
                 {linkCopiado ? "Copiado" : "Copiar enlace"}
               </button>
-              <a
-                href={`https://wa.me/52${doctor.whatsapp?.replace(/\D/g, "")}?text=${encodeURIComponent("Aqui puedes agendar tu cita: https://uno-por-ciento.vercel.app/agendar?doctor=" + doctor.id)}`}
+              
+                <a href={"https://wa.me/52" + (doctor.whatsapp ? doctor.whatsapp.replace(/\D/g, "") : "") + "?text=" + encodeURIComponent("Aqui puedes agendar tu cita: https://uno-por-ciento.vercel.app/agendar?doctor=" + doctor.id)}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ backgroundColor: "#25D366", color: "#fff" }}
@@ -304,7 +307,7 @@ export default function DashboardPage() {
             </p>
           </div>
           
-            href="/dashboard/servicios"
+            <a href="/dashboard/servicios"
             style={{ backgroundColor: teal, color: "#fff" }}
             className="rounded-lg px-5 py-2.5 text-sm font-medium whitespace-nowrap no-underline"
           >
@@ -321,7 +324,7 @@ export default function DashboardPage() {
               </p>
             </div>
             
-              href="/dashboard/citas"
+              <a href="/dashboard/citas"
               style={{ borderColor: border, color: ink }}
               className="border rounded-lg px-5 py-2.5 text-sm font-medium whitespace-nowrap no-underline"
             >
@@ -350,6 +353,3 @@ export default function DashboardPage() {
     </main>
   );
 }
-ENDOFFILEnpm run build 2>&1 | tail -10
-cd /Users/macbookair/uno-por-ciento && npm run build 2>&1 | tail -10
-
