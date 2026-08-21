@@ -307,7 +307,7 @@ export default function DashboardPage() {
       Sube tu logo, colores y foto para generar posts personalizados con tu marca.
     </p>
   </div>
-  
+  <a 
     href="/dashboard/marca"
     style={{ backgroundColor: teal, color: "#fff" }}
     className="rounded-lg px-5 py-2.5 text-sm font-medium whitespace-nowrap no-underline"
