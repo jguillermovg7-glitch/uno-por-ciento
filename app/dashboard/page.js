@@ -298,21 +298,29 @@ export default function DashboardPage() {
             </button>
           </div>
         )}
-<div style={{ borderColor: border }} className="border rounded-2xl p-6 mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-  <div>
-    <p style={{ color: teal }} className="font-mono text-[11px] mb-1">NUEVO</p>
-    <p style={{ color: ink }} className="font-display font-bold text-sm mb-1">Kit de contenido</p>
-    <p style={{ color: ink, opacity: 0.6 }} className="text-[13px]">
-      Sube tu logo, colores y foto para generar posts personalizados con tu marca.
-    </p>
+  {/* Kit de contenido */}
+<div style={{ borderColor: border }} className="border rounded-2xl p-6 mt-6">
+  <p style={{ color: teal }} className="font-mono text-[11px] mb-1">NUEVO</p>
+  <p style={{ color: ink }} className="font-display font-bold text-sm mb-1">Kit de contenido</p>
+  <p style={{ color: ink, opacity: 0.6 }} className="text-[13px] mb-4">
+    Genera posts personalizados con tu marca para publicar en redes sociales.
+  </p>
+  <div className="flex gap-3">
+    
+      href="/dashboard/posts"
+      style={{ backgroundColor: teal, color: "#fff" }}
+      className="rounded-lg px-5 py-2.5 text-sm font-medium whitespace-nowrap no-underline"
+    >
+      Generar post
+    </a>
+    
+      href="/dashboard/marca"
+      style={{ borderColor: border, color: ink }}
+      className="border rounded-lg px-5 py-2.5 text-sm font-medium whitespace-nowrap no-underline"
+    >
+      Configurar marca
+    </a>
   </div>
-  <a 
-    href="/dashboard/marca"
-    style={{ backgroundColor: teal, color: "#fff" }}
-    className="rounded-lg px-5 py-2.5 text-sm font-medium whitespace-nowrap no-underline"
-  >
-    Configurar marca
-  </a>
 </div>
         <div style={{ borderColor: border }} className="border rounded-2xl p-6 mt-2 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
