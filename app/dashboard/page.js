@@ -298,8 +298,41 @@ export default function DashboardPage() {
             </button>
           </div>
         )}
-
+{/* Kit de contenido */}
+<div style={{ borderColor: border }} className="border rounded-2xl p-6 mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+  <div>
+    <p style={{ color: teal }} className="font-mono text-[11px] mb-1">NUEVO</p>
+    <p style={{ color: ink }} className="font-display font-bold text-sm mb-1">Kit de contenido</p>
+    <p style={{ color: ink, opacity: 0.6 }} className="text-[13px]">
+      Sube tu logo, colores y foto para generar posts personalizados con tu marca.
+    </p>
+  </div>
+  
+    href="/dashboard/marca"
+    style={{ backgroundColor: teal, color: "#fff" }}
+    className="rounded-lg px-5 py-2.5 text-sm font-medium whitespace-nowrap no-underline"
+  >
+    Configurar marca
+  </a>
+</div>
         <div style={{ borderColor: border }} className="border rounded-2xl p-6 mt-2 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          {/* Kit de contenido */}
+<div style={{ borderColor: border }} className="border rounded-2xl p-6 mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+  <div>
+    <p style={{ color: teal }} className="font-mono text-[11px] mb-1">NUEVO</p>
+    <p style={{ color: ink }} className="font-display font-bold text-sm mb-1">Kit de contenido</p>
+    <p style={{ color: ink, opacity: 0.6 }} className="text-[13px]">
+      Sube tu logo, colores y foto para generar posts personalizados con tu marca.
+    </p>
+  </div>
+  
+    href="/dashboard/marca"
+    style={{ backgroundColor: teal, color: "#fff" }}
+    className="rounded-lg px-5 py-2.5 text-sm font-medium whitespace-nowrap no-underline"
+  >
+    Configurar marca
+  </a>
+</div>
           <div>
             <p style={{ color: ink }} className="font-display font-bold text-sm mb-1">Tus servicios</p>
             <p style={{ color: ink, opacity: 0.6 }} className="text-[13px]">
