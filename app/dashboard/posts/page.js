@@ -22,7 +22,7 @@ const TEMAS_POR_ESPECIALIDAD = {
   ],
   fisioterapia: [
     { id: "espalda", label: "Dolor de espalda", titulo: "Deja de vivir con dolor de espalda.", subtitulo: "Tratamiento especializado para recuperar tu movilidad y calidad de vida." },
-    { id: "postquirurgico", label: "Recuperación post-quirúrgica", titulo: "Recupera tu movilidad más rápido.", subtitulo: "Rehabilitación profesional para que vuelvas a tu vida normal lo antes posible." },
+    { id: "postquirurgico", label: "Post-quirúrgico", titulo: "Recupera tu movilidad más rápido.", subtitulo: "Rehabilitación profesional para que vuelvas a tu vida normal lo antes posible." },
     { id: "deportivo", label: "Lesiones deportivas", titulo: "Vuelve a tu deporte sin dolor.", subtitulo: "Tratamiento y prevención de lesiones deportivas con enfoque en tu rendimiento." },
     { id: "mayores", label: "Adultos mayores", titulo: "Moverte bien es vivir mejor.", subtitulo: "Rehabilitación especializada para adultos mayores que quieren mantener su independencia." },
     { id: "conoceme", label: "Conóceme", titulo: "Hola, soy tu fisioterapeuta.", subtitulo: "Tratamientos personalizados para que recuperes tu movilidad y bienestar." },
@@ -63,7 +63,7 @@ const CTAS_PREDEFINIDOS = [
 ];
 
 function detectarEspecialidad(especialidad) {
-  const e = (especialidad || "").toLowerCase();
+  const e = (especialidad || "").toLowerCase().trim();
   if (e.includes("psic") || e.includes("terap")) return "psicologia";
   if (e.includes("nutri")) return "nutricion";
   if (e.includes("fisio") || e.includes("rehab") || e.includes("quiro") || e.includes("masaj")) return "fisioterapia";
@@ -89,6 +89,8 @@ export default function PostsPage() {
   const [colorCta, setColorCta] = useState("#25D366");
   const [colorTextoCta, setColorTextoCta] = useState("#FFFFFF");
   const [layout, setLayout] = useState("foto-derecha");
+  const [mostrarCta, setMostrarCta] = useState(true);
+  const [mostrarDatos, setMostrarDatos] = useState(true);
 
   const ink = "#0B1418";
   const teal = "#0E7C7B";
@@ -106,7 +108,6 @@ export default function PostsPage() {
         .single();
       if (!data || data.estado !== "activo") { router.push("/dashboard"); return; }
       setDoctor(data);
-
       const clave = detectarEspecialidad(data.especialidad);
       const temasEsp = TEMAS_POR_ESPECIALIDAD[clave] || TEMAS_POR_ESPECIALIDAD.psicologia;
       setTemas(temasEsp);
@@ -140,7 +141,8 @@ export default function PostsPage() {
       logoUrl: doctor.marca_logo_url || "",
       titulo,
       subtitulo,
-      cta,
+      cta: mostrarCta ? cta : "",
+      mostrarDatos: mostrarDatos ? "1" : "0",
       layout,
     });
     return `/api/generar-post?${params.toString()}`;
@@ -175,6 +177,31 @@ export default function PostsPage() {
     { id: "solo-color", label: "Solo color" },
   ];
 
+  function Toggle({ label, value, onChange }) {
+    return (
+      <div className="flex items-center justify-between">
+        <p style={{ color: ink }} className="text-sm">{label}</p>
+        <button
+          onClick={() => onChange(!value)}
+          style={{
+            width: "44px", height: "24px", borderRadius: "12px",
+            backgroundColor: value ? teal : border,
+            position: "relative", transition: "background 0.2s",
+            border: "none", cursor: "pointer", flexShrink: 0,
+          }}
+        >
+          <span style={{
+            position: "absolute", top: "3px",
+            left: value ? "23px" : "3px",
+            width: "18px", height: "18px",
+            borderRadius: "50%", backgroundColor: "#fff",
+            transition: "left 0.2s",
+          }} />
+        </button>
+      </div>
+    );
+  }
+
   return (
     <main style={{ backgroundColor: "#FFFFFF" }} className="min-h-screen">
       <nav style={{ borderColor: border }} className="flex justify-between items-center px-4 md:px-12 py-4 border-b">
@@ -190,8 +217,8 @@ export default function PostsPage() {
         <p style={{ color: ink, opacity: 0.6 }} className="text-sm mb-10">Personaliza y descarga tu imagen lista para publicar en redes.</p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-          {/* Panel izquierdo — controles */}
-          <div className="flex flex-col gap-6">
+          {/* Panel izquierdo */}
+          <div className="flex flex-col gap-5">
 
             {/* Tema */}
             <div style={{ borderColor: border }} className="border rounded-2xl p-5">
@@ -243,56 +270,67 @@ export default function PostsPage() {
 
             {/* CTA */}
             <div style={{ borderColor: border }} className="border rounded-2xl p-5">
-              <p style={{ color: ink }} className="font-display font-bold text-sm mb-3">Llamada a la acción</p>
-              <div className="grid grid-cols-2 gap-2 mb-3">
-                {CTAS_PREDEFINIDOS.map((c) => (
-                  <button
-                    key={c}
-                    onClick={() => { setCta(c); setCtaPersonalizado(false); }}
-                    style={{
-                      borderColor: cta === c && !ctaPersonalizado ? teal : border,
-                      backgroundColor: cta === c && !ctaPersonalizado ? "#F4FAF9" : "#fff",
-                      color: ink,
-                    }}
-                    className="border-2 rounded-xl px-3 py-2 text-xs text-left"
-                  >
-                    {c}
-                  </button>
-                ))}
+              <div className="mb-3">
+                <Toggle label="Mostrar llamada a la acción" value={mostrarCta} onChange={setMostrarCta} />
               </div>
-              <div>
-                <p style={{ color: ink, opacity: 0.6 }} className="text-xs mb-1">O escribe el tuyo</p>
-                <input
-                  type="text"
-                  value={ctaPersonalizado ? cta : ""}
-                  placeholder="Texto personalizado..."
-                  onChange={(e) => { setCta(e.target.value); setCtaPersonalizado(true); }}
-                  style={{ borderColor: border, color: ink }}
-                  className="border rounded-xl px-3 py-2.5 text-sm w-full"
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-4 mt-3">
-                <div>
-                  <p style={{ color: ink, opacity: 0.6 }} className="text-xs mb-1">Color del botón</p>
-                  <div className="flex items-center gap-2">
-                    <input type="color" value={colorCta} onChange={(e) => setColorCta(e.target.value)}
-                      style={{ width: "36px", height: "36px", borderRadius: "8px", border: "none", cursor: "pointer" }} />
-                    <input type="text" value={colorCta} onChange={(e) => setColorCta(e.target.value)}
-                      style={{ borderColor: border, color: ink, fontFamily: "monospace" }}
-                      className="border rounded-lg px-2 py-1.5 text-xs flex-1" />
+              {mostrarCta && (
+                <>
+                  <div className="grid grid-cols-2 gap-2 mb-3">
+                    {CTAS_PREDEFINIDOS.map((c) => (
+                      <button
+                        key={c}
+                        onClick={() => { setCta(c); setCtaPersonalizado(false); }}
+                        style={{
+                          borderColor: cta === c && !ctaPersonalizado ? teal : border,
+                          backgroundColor: cta === c && !ctaPersonalizado ? "#F4FAF9" : "#fff",
+                          color: ink,
+                        }}
+                        className="border-2 rounded-xl px-3 py-2 text-xs text-left"
+                      >
+                        {c}
+                      </button>
+                    ))}
                   </div>
-                </div>
-                <div>
-                  <p style={{ color: ink, opacity: 0.6 }} className="text-xs mb-1">Color del texto</p>
-                  <div className="flex items-center gap-2">
-                    <input type="color" value={colorTextoCta} onChange={(e) => setColorTextoCta(e.target.value)}
-                      style={{ width: "36px", height: "36px", borderRadius: "8px", border: "none", cursor: "pointer" }} />
-                    <input type="text" value={colorTextoCta} onChange={(e) => setColorTextoCta(e.target.value)}
-                      style={{ borderColor: border, color: ink, fontFamily: "monospace" }}
-                      className="border rounded-lg px-2 py-1.5 text-xs flex-1" />
+                  <div className="mb-3">
+                    <p style={{ color: ink, opacity: 0.6 }} className="text-xs mb-1">O escribe el tuyo</p>
+                    <input
+                      type="text"
+                      value={ctaPersonalizado ? cta : ""}
+                      placeholder="Texto personalizado..."
+                      onChange={(e) => { setCta(e.target.value); setCtaPersonalizado(true); }}
+                      style={{ borderColor: border, color: ink }}
+                      className="border rounded-xl px-3 py-2.5 text-sm w-full"
+                    />
                   </div>
-                </div>
-              </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <p style={{ color: ink, opacity: 0.6 }} className="text-xs mb-1">Color del botón</p>
+                      <div className="flex items-center gap-2">
+                        <input type="color" value={colorCta} onChange={(e) => setColorCta(e.target.value)}
+                          style={{ width: "36px", height: "36px", borderRadius: "8px", border: "none", cursor: "pointer" }} />
+                        <input type="text" value={colorCta} onChange={(e) => setColorCta(e.target.value)}
+                          style={{ borderColor: border, color: ink, fontFamily: "monospace" }}
+                          className="border rounded-lg px-2 py-1.5 text-xs flex-1" />
+                      </div>
+                    </div>
+                    <div>
+                      <p style={{ color: ink, opacity: 0.6 }} className="text-xs mb-1">Color del texto</p>
+                      <div className="flex items-center gap-2">
+                        <input type="color" value={colorTextoCta} onChange={(e) => setColorTextoCta(e.target.value)}
+                          style={{ width: "36px", height: "36px", borderRadius: "8px", border: "none", cursor: "pointer" }} />
+                        <input type="text" value={colorTextoCta} onChange={(e) => setColorTextoCta(e.target.value)}
+                          style={{ borderColor: border, color: ink, fontFamily: "monospace" }}
+                          className="border rounded-lg px-2 py-1.5 text-xs flex-1" />
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Datos de contacto */}
+            <div style={{ borderColor: border }} className="border rounded-2xl p-5">
+              <Toggle label="Mostrar nombre y teléfono" value={mostrarDatos} onChange={setMostrarDatos} />
             </div>
 
             {/* Layout */}
@@ -316,16 +354,14 @@ export default function PostsPage() {
               </div>
             </div>
 
-            {/* Marca rápida */}
+            {/* Editar marca */}
             <div style={{ backgroundColor: surface, borderColor: border }} className="border rounded-2xl p-4 flex justify-between items-center">
               <p style={{ color: ink, opacity: 0.6 }} className="text-xs">¿Quieres cambiar logo, foto o colores?</p>
-              <a href="/dashboard/marca" style={{ color: teal }} className="text-xs font-medium no-underline">
-                Editar marca →
-              </a>
+              <a href="/dashboard/marca" style={{ color: teal }} className="text-xs font-medium no-underline">Editar marca →</a>
             </div>
           </div>
 
-          {/* Panel derecho — preview + descarga */}
+          {/* Panel derecho — preview */}
           <div className="flex flex-col gap-4">
             <p style={{ color: ink }} className="font-display font-bold text-sm">Vista previa</p>
             <img
