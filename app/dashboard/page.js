@@ -306,14 +306,14 @@ export default function DashboardPage() {
     Genera posts personalizados con tu marca para publicar en redes sociales.
   </p>
   <div className="flex gap-3">
-    
+    <a
       href="/dashboard/posts"
       style={{ backgroundColor: teal, color: "#fff" }}
       className="rounded-lg px-5 py-2.5 text-sm font-medium whitespace-nowrap no-underline"
     >
       Generar post
     </a>
-    
+    <a
       href="/dashboard/marca"
       style={{ borderColor: border, color: ink }}
       className="border rounded-lg px-5 py-2.5 text-sm font-medium whitespace-nowrap no-underline"
