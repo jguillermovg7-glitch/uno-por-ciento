@@ -48,21 +48,22 @@ export default function MarcaPage() {
   }, []);
 
   async function subirArchivo(file, tipo) {
-    const ext = file.name.split(".").pop();
-    const path = `${doctor.id}/${tipo}.${ext}`;
+  const ext = file.name.split(".").pop();
+  const timestamp = Date.now();
+  const path = `${doctor.id}/${tipo}_${timestamp}.${ext}`;
 
-    const { error } = await supabase.storage
-      .from("marca-doctor")
-      .upload(path, file, { upsert: true });
+  const { error } = await supabase.storage
+    .from("marca-doctor")
+    .upload(path, file, { upsert: true });
 
-    if (error) throw error;
+  if (error) throw error;
 
-    const { data: urlData } = supabase.storage
-      .from("marca-doctor")
-      .getPublicUrl(path);
+  const { data: urlData } = supabase.storage
+    .from("marca-doctor")
+    .getPublicUrl(path);
 
-    return urlData.publicUrl;
-  }
+  return urlData.publicUrl;
+}
 
   async function handleLogoChange(e) {
     const file = e.target.files[0];
