@@ -355,7 +355,22 @@ export default function DashboardPage() {
             </a>
           </div>
         )}
-
+{/* Perfil */}
+<div style={{ borderColor: border }} className="border rounded-2xl p-6 mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+  <div>
+    <p style={{ color: ink }} className="font-display font-bold text-sm mb-1">Tu perfil</p>
+    <p style={{ color: ink, opacity: 0.6 }} className="text-[13px]">
+      Actualiza tu información, horario, redes sociales y más.
+    </p>
+  </div>
+  
+    href="/dashboard/perfil"
+    style={{ borderColor: border, color: ink }}
+    className="border rounded-lg px-5 py-2.5 text-sm font-medium whitespace-nowrap no-underline"
+  <a>
+    Editar perfil
+  </a>
+</div>
         <div style={{ borderColor: border }} className="border rounded-2xl p-6 mt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
             <p style={{ color: ink }} className="font-display font-bold text-sm mb-1">Tu suscripcion</p>
