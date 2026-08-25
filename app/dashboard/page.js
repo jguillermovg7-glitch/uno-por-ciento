@@ -362,7 +362,7 @@ export default function DashboardPage() {
   <div>
     <p style={{ color: ink }} className="font-display font-bold text-sm mb-1">Tu perfil</p>
     <p style={{ color: ink, opacity: 0.6 }} className="text-[13px]">
-      Actualiza tu información, horario, redes sociales y más.
+      Actualiza tu informacion, horario, redes sociales y mas.
     </p>
   </div>
   
