@@ -1,12 +1,64 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { createClient } from "../../lib/supabaseClient";
 
 export default function PlanesPage() {
   const router = useRouter();
+  const supabase = createClient();
+  const [user, setUser] = useState(null);
+  const [doctor, setDoctor] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  function selectPlan(plan) {
-    localStorage.setItem("plan_seleccionado", plan);
-    router.push("/login?next=/onboarding");
+  useEffect(() => {
+    async function checkAuth() {
+      const { data: { user } } = await supabase.auth.getUser();
+      setUser(user);
+
+      if (user) {
+        const { data: doctorData } = await supabase
+          .from("doctores")
+          .select("*")
+          .eq("user_id", user.id)
+          .single();
+        
+        if (doctorData) {
+          setDoctor(doctorData);
+        }
+      }
+      setLoading(false);
+    }
+    checkAuth();
+  }, []);
+
+  async function selectPlan(plan) {
+    if (user && doctor) {
+      // Ya autenticado y con doctor creado → actualizar plan y ir a preview
+      const { error } = await supabase
+        .from("doctores")
+        .update({ plan })
+        .eq("user_id", user.id);
+      
+      if (!error) {
+        router.push("/preview");
+      }
+    } else if (user) {
+      // Autenticado pero sin doctor → ir a onboarding con el plan
+      localStorage.setItem("plan_seleccionado", plan);
+      router.push("/onboarding");
+    } else {
+      // No autenticado → ir a login
+      localStorage.setItem("plan_seleccionado", plan);
+      router.push("/login?next=/onboarding");
+    }
+  }
+
+  if (loading) {
+    return (
+      <main style={{ backgroundColor: "#FFFFFF", minHeight: "100vh" }} className="flex items-center justify-center">
+        <p style={{ color: "#0B1418" }}>Cargando...</p>
+      </main>
+    );
   }
 
   const ink = "#0B1418";
