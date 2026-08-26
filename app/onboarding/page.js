@@ -10,6 +10,7 @@ export default function OnboardingPage() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const [form, setForm] = useState({
     nombre: "",
@@ -41,21 +42,32 @@ export default function OnboardingPage() {
       // Checa si ya tiene registro en doctores
       const { data: doctor } = await supabase
         .from("doctores")
-        .select("estado")
+        .select("*")
         .eq("user_id", data.user.id)
         .single();
 
       if (doctor) {
-        // Ya existe — redirige según su estado
-        if (doctor.estado === "activo") {
-          router.push("/dashboard");
-        } else {
-          router.push("/preview");
-        }
-        return;
+        // Ya existe — es EDICIÓN
+        setIsEditing(true);
+        setPlan(doctor.plan);
+        setForm({
+          nombre: doctor.nombre || "",
+          especialidad: doctor.especialidad || "",
+          servicios: doctor.servicios || "",
+          sintomas: doctor.sintomas || "",
+          frase: doctor.frase || "",
+          ciudad: doctor.ciudad || "",
+          direccion: doctor.direccion || "",
+          whatsapp: doctor.whatsapp || "",
+          horario: doctor.horario || "",
+          diferenciador: doctor.diferenciador || "",
+          experiencia: doctor.experiencia || "",
+          instagram: doctor.instagram || "",
+          facebook: doctor.facebook || "",
+          presupuesto_ads: doctor.presupuesto_ads || "100",
+        });
       }
 
-      // No existe — es nuevo, muestra el formulario
       setUser(data.user);
       setLoading(false);
     });
@@ -113,10 +125,13 @@ export default function OnboardingPage() {
           Plan: {plan === "sitio" ? "Sitio web profesional" : plan === "combo" ? "Sitio + Campaña" : "Campaña de captación"}
         </p>
         <h1 style={{ color: ink }} className="font-display font-bold text-2xl md:text-[28px] text-center mb-2">
-          Cuéntanos sobre ti
+          {isEditing ? "Edita tu información" : "Cuéntanos sobre ti"}
         </h1>
         <p style={{ color: ink, opacity: 0.6 }} className="text-center text-sm mb-10">
-          Con esto armamos tu {plan === "sitio" ? "sitio" : plan === "combo" ? "sitio y campaña" : "campaña"}. Tarda menos de 5 minutos.
+          {isEditing 
+            ? "Actualiza los datos que necesites cambiar."
+            : `Con esto armamos tu ${plan === "sitio" ? "sitio" : plan === "combo" ? "sitio y campaña" : "campaña"}. Tarda menos de 5 minutos.`
+          }
         </p>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
@@ -172,7 +187,7 @@ export default function OnboardingPage() {
             style={{ backgroundColor: ink, color: "#fff" }}
             className="rounded-lg py-3.5 text-sm font-medium disabled:opacity-50 mt-2"
           >
-            {saving ? "Guardando..." : "Continuar →"}
+            {saving ? "Guardando..." : isEditing ? "Guardar cambios →" : "Continuar →"}
           </button>
         </form>
       </div>
