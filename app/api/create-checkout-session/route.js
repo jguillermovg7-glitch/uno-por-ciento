@@ -17,23 +17,22 @@ export async function POST(request) {
       allow_promotion_codes: true,
     };
 
+    // ── Planes originales (no tocar) ──────────────────────────
     if (plan === "sitio") {
       sessionConfig.mode = "subscription";
       sessionConfig.line_items = [
         { price: process.env.STRIPE_PRICE_SITIO_DOMINIO, quantity: 1 },
         { price: process.env.STRIPE_PRICE_SITIO_MANTENIMIENTO, quantity: 1 },
       ];
-      sessionConfig.subscription_data = {
-        metadata: { userId, plan },
-      };
+      sessionConfig.subscription_data = { metadata: { userId, plan } };
+
     } else if (plan === "campana") {
       sessionConfig.mode = "subscription";
       sessionConfig.line_items = [
         { price: process.env.STRIPE_PRICE_CAMPANA, quantity: 1 },
       ];
-      sessionConfig.subscription_data = {
-        metadata: { userId, plan },
-      };
+      sessionConfig.subscription_data = { metadata: { userId, plan } };
+
     } else if (plan === "combo") {
       sessionConfig.mode = "subscription";
       sessionConfig.line_items = [
@@ -41,16 +40,37 @@ export async function POST(request) {
         { price: process.env.STRIPE_PRICE_SITIO_MANTENIMIENTO, quantity: 1 },
         { price: process.env.STRIPE_PRICE_CAMPANA, quantity: 1 },
       ];
-      sessionConfig.subscription_data = {
-        metadata: { userId, plan },
-      };
+      sessionConfig.subscription_data = { metadata: { userId, plan } };
+
+    // ── Planes nuevos landing B ───────────────────────────────
+    } else if (plan === "starter") {
+      sessionConfig.mode = "subscription";
+      sessionConfig.line_items = [
+        { price: process.env.STRIPE_PRICE_STARTER, quantity: 1 },
+      ];
+      sessionConfig.subscription_data = { metadata: { userId, plan } };
+
+    } else if (plan === "pro") {
+      sessionConfig.mode = "subscription";
+      sessionConfig.line_items = [
+        { price: process.env.STRIPE_PRICE_PRO, quantity: 1 },
+      ];
+      sessionConfig.subscription_data = { metadata: { userId, plan } };
+
+    } else if (plan === "superior") {
+      sessionConfig.mode = "subscription";
+      sessionConfig.line_items = [
+        { price: process.env.STRIPE_PRICE_SUPERIOR, quantity: 1 },
+      ];
+      sessionConfig.subscription_data = { metadata: { userId, plan } };
+
     } else {
       return NextResponse.json({ error: "Plan inválido" }, { status: 400 });
     }
 
     const session = await stripe.checkout.sessions.create(sessionConfig);
-
     return NextResponse.json({ url: session.url });
+
   } catch (err) {
     console.error(err);
     return NextResponse.json({ error: err.message }, { status: 500 });
