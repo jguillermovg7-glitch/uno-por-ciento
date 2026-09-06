@@ -35,7 +35,7 @@ const PLANES = {
   superior: {
     nombre: "Superior",
     alcance: "Google + Facebook + sitio",
-    precio: "$2,495",
+    precio: "$1,499",
     ciclo: "/mes + pauta",
     descripcion: "Todo lo de Pro, más Facebook y tu sitio completo. El nivel de mayor resultado.",
     features: [
