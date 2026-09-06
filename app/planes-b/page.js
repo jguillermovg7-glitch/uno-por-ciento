@@ -97,14 +97,14 @@ function PlanesB() {
 
     if (!user) {
       // No autenticado → guardar plan y mandar a login
-      localStorage.setItem("plan_seleccionado_b", plan);
+      localStorage.setItem("plan_seleccionado", plan);
       router.push(`/login?next=/planes-b?plan=${plan}`);
       return;
     }
 
     if (!doctor) {
       // Sin perfil → guardar plan y mandar a onboarding
-      localStorage.setItem("plan_seleccionado_b", plan);
+      localStorage.setItem("plan_seleccionado", plan);
       router.push("/onboarding");
       return;
     }
