@@ -96,7 +96,8 @@ export default function OnboardingPage() {
       return;
     }
 
-    router.push("/preview");
+    const planesLandingB = ["starter", "pro", "superior"];
+    router.push(planesLandingB.includes(plan) ? "/checkout" : "/preview");
   }
 
   const ink = "#0B1418";
@@ -122,7 +123,15 @@ export default function OnboardingPage() {
         </div>
 
         <p style={{ color: teal }} className="font-mono text-[13px] text-center mb-2">
-          Plan: {plan === "sitio" ? "Sitio web profesional" : plan === "combo" ? "Sitio + Campaña" : "Campaña de captación"}
+          Plan: {
+            plan === "sitio" ? "Sitio web profesional" :
+            plan === "combo" ? "Sitio + Campaña" :
+            plan === "campana" ? "Campaña de captación" :
+            plan === "starter" ? "Campaña en Facebook Ads" :
+            plan === "pro" ? "Google Ads + Landing" :
+            plan === "superior" ? "Plan Superior" :
+            "Tu plan"
+          }
         </p>
         <h1 style={{ color: ink }} className="font-display font-bold text-2xl md:text-[28px] text-center mb-2">
           {isEditing ? "Edita tu información" : "Cuéntanos sobre ti"}
@@ -173,7 +182,7 @@ export default function OnboardingPage() {
             </div>
           </div>
 
-          {(plan === "campana" || plan === "combo") && (
+          {(plan === "campana" || plan === "combo" || plan === "starter" || plan === "pro") && (
             <div>
               <p style={labelStyle} className="font-display font-bold text-sm mb-3">Presupuesto de publicidad</p>
               <input name="presupuesto_ads" type="number" placeholder="Presupuesto diario en pesos" value={form.presupuesto_ads} onChange={handleChange} style={inputStyle} className="border rounded-lg px-4 py-3 text-sm outline-none" />
