@@ -97,7 +97,26 @@ export default function OnboardingPage() {
     }
 
     const planesLandingB = ["starter", "pro", "superior"];
-    router.push(planesLandingB.includes(plan) ? "/checkout" : "/preview");
+
+    if (planesLandingB.includes(plan)) {
+      try {
+        const res = await fetch("/api/create-checkout-session", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ plan, email: user.email, userId: user.id }),
+        });
+        const data = await res.json();
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          alert("Error al crear la sesión de pago.");
+        }
+      } catch (e) {
+        alert("Error de conexión al iniciar el pago.");
+      }
+    } else {
+      router.push("/preview");
+    }
   }
 
   const ink = "#0B1418";
