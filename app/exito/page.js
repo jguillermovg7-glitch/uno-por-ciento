@@ -1,8 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function ExitoPage() {
+function ExitoContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [countdown, setCountdown] = useState(5);
@@ -56,5 +56,13 @@ export default function ExitoPage() {
         </p>
       </div>
     </main>
+  );
+}
+
+export default function ExitoPage() {
+  return (
+    <Suspense fallback={null}>
+      <ExitoContent />
+    </Suspense>
   );
 }
