@@ -1,9 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function ExitoPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [countdown, setCountdown] = useState(5);
 
   useEffect(() => {
@@ -18,6 +19,16 @@ export default function ExitoPage() {
       router.push("/dashboard");
     }
   }, [countdown]);
+
+  useEffect(() => {
+    const sessionId = searchParams.get("session_id");
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag('event', 'conversion', {
+        'send_to': 'AW-18421386124/8qGzCNGYo_IcEIyXgNBE',
+        'transaction_id': sessionId || '',
+      });
+    }
+  }, []);
 
   const ink = "#0B1418";
   const live = "#3DDC84";

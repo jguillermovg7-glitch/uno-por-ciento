@@ -19,6 +19,7 @@ export default function RootLayout({ children }) {
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', 'AW-10827456865');
+          gtag('config', 'AW-18421386124');
           function gtag_report_conversion(url) {
             var callback = function () {
               if (typeof(url) != 'undefined') { window.location = url; }
