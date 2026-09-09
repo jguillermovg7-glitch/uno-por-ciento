@@ -69,17 +69,22 @@ function PlanesB() {
 
   useEffect(() => {
     async function init() {
-      const { data: { user } } = await supabase.auth.getUser();
-      setUser(user);
-      if (user) {
-        const { data } = await supabase
-          .from("doctores")
-          .select("*")
-          .eq("user_id", user.id)
-          .single();
-        if (data) setDoctor(data);
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        setUser(user);
+        if (user) {
+          const { data } = await supabase
+            .from("doctores")
+            .select("*")
+            .eq("user_id", user.id)
+            .single();
+          if (data) setDoctor(data);
+        }
+      } catch (e) {
+        console.error("Error inicializando planes-b:", e);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     }
     init();
   }, []);
