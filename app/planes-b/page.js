@@ -100,6 +100,10 @@ function PlanesB() {
     if (!PLANES[plan]) return;
     setProcesando(plan);
 
+    if (typeof window !== "undefined" && window.fbq) {
+      window.fbq("track", "InitiateCheckout", { content_name: plan });
+    }
+
     if (!user) {
       // No autenticado → guardar plan y mandar a login
       localStorage.setItem("plan_seleccionado", plan);
