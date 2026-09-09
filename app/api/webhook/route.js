@@ -21,6 +21,18 @@ async function buscarUserIdPorEmail(email) {
   return null;
 }
 
+async function guardarTrace(email, trace) {
+  if (!email) return;
+  try {
+    await supabaseAdmin
+      .from("doctores")
+      .update({ debug_log: trace.join(" | ").slice(0, 8000) })
+      .eq("email", email);
+  } catch (e) {
+    console.error("No se pudo guardar trace:", e.message);
+  }
+}
+
 export async function POST(request) {
   const body = await request.text();
   const signature = request.headers.get("stripe-signature");
@@ -34,6 +46,7 @@ export async function POST(request) {
 
   const trace = [];
   trace.push(`inicio: ${event.type} @ ${new Date().toISOString()}`);
+  let emailParaLog = null;
 
   try {
     if (event.type === "checkout.session.completed") {
@@ -41,6 +54,7 @@ export async function POST(request) {
       const userId = session.metadata?.userId;
       const plan = session.metadata?.plan;
       const email = session.customer_details?.email || session.customer_email;
+      emailParaLog = email;
 
       trace.push(`session.id=${session.id} userId="${userId}" plan="${plan}" email="${email}"`);
 
@@ -53,7 +67,6 @@ export async function POST(request) {
             plan_type: plan,
             stripe_customer_id: session.customer,
             stripe_subscription_id: session.subscription,
-            debug_log: trace.join(" | "),
           })
           .eq("user_id", userId);
         trace.push(`update por userId error=${error?.message || "ninguno"}`);
@@ -100,35 +113,12 @@ export async function POST(request) {
               stripe_customer_id: session.customer,
               stripe_subscription_id: session.subscription,
               stripe_session_id: session.id,
-              debug_log: trace.join(" | "),
             }, { onConflict: "user_id" })
             .select();
 
           trace.push(`upsert filas_afectadas=${upsertData?.length ?? "null"} upsertError=${upsertError?.message || "ninguno"}`);
-
-          if (!upsertData || upsertData.length === 0) {
-            // El upsert no tocó ninguna fila (posible mismatch de onConflict). Reintenta con update directo.
-            const { data: updateData, error: updateError } = await supabaseAdmin
-              .from("doctores")
-              .update({
-                plan: plan,
-                plan_type: plan,
-                estado: "pago_confirmado",
-                stripe_customer_id: session.customer,
-                stripe_subscription_id: session.subscription,
-                stripe_session_id: session.id,
-                debug_log: trace.join(" | ") + " | fallback update directo",
-              })
-              .eq("user_id", newUserId)
-              .select();
-            trace.push(`fallback update filas_afectadas=${updateData?.length ?? "null"} updateError=${updateError?.message || "ninguno"}`);
-          }
         } else {
           trace.push("newUserId nunca se resolvió, no se intentó upsert");
-          await supabaseAdmin
-            .from("doctores")
-            .update({ debug_log: trace.join(" | ") })
-            .eq("email", email);
         }
       } else {
         trace.push("ni userId ni email presentes, nada que hacer");
@@ -140,14 +130,16 @@ export async function POST(request) {
       trace.push(`subscription.deleted id=${subscription.id}`);
       const { data: updateData, error } = await supabaseAdmin
         .from("doctores")
-        .update({ estado: "cancelado", debug_log: trace.join(" | ") })
+        .update({ estado: "cancelado" })
         .eq("stripe_subscription_id", subscription.id)
-        .select();
+        .select("email");
       trace.push(`filas_afectadas=${updateData?.length ?? "null"} error=${error?.message || "ninguno"}`);
+      if (updateData?.[0]?.email) emailParaLog = updateData[0].email;
     }
   } catch (err) {
-    trace.push(`EXCEPCION: ${err.message}`);
-    console.error("Error inesperado procesando webhook:", err);
+    trace.push(`EXCEPCION: ${err.message} | stack: ${err.stack?.slice(0, 500)}`);
+  } finally {
+    await guardarTrace(emailParaLog, trace);
   }
 
   return NextResponse.json({ received: true });
