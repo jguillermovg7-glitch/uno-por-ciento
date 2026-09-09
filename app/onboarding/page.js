@@ -11,6 +11,7 @@ export default function OnboardingPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [pagoYaConfirmado, setPagoYaConfirmado] = useState(false);
 
   const [form, setForm] = useState({
     nombre: "",
@@ -46,10 +47,17 @@ export default function OnboardingPage() {
         .eq("user_id", data.user.id)
         .single();
 
+      if (doctor) {
+        // El plan real vive en Supabase (lo puso el webhook al confirmar el pago), nunca confiar en localStorage aquí.
+        setPlan(doctor.plan);
+        if (doctor.estado === "pago_confirmado" || doctor.estado === "activo") {
+          setPagoYaConfirmado(true);
+        }
+      }
+
       if (doctor && doctor.estado === "formulario_completo") {
         // Ya llenó el formulario antes — es EDICIÓN de verdad
         setIsEditing(true);
-        setPlan(doctor.plan);
         setForm({
           nombre: doctor.nombre || "",
           especialidad: doctor.especialidad || "",
@@ -86,7 +94,7 @@ export default function OnboardingPage() {
       email: user.email,
       plan: plan,
       ...form,
-      estado: "formulario_completo",
+      estado: pagoYaConfirmado ? "activo" : "formulario_completo",
     }, { onConflict: "user_id" });
 
     setSaving(false);
@@ -98,6 +106,12 @@ export default function OnboardingPage() {
 
     if (!isEditing && typeof window !== "undefined" && window.fbq) {
       window.fbq("track", "Lead");
+    }
+
+    if (pagoYaConfirmado) {
+      // Ya pagó antes de llegar aquí (flujo nuevo) — no volver a cobrar.
+      router.push("/dashboard");
+      return;
     }
 
     const planesLandingB = ["starter", "pro", "superior"];
