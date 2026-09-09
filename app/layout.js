@@ -26,6 +26,13 @@ export default function RootLayout({ children }) {
             gtag('event', 'conversion', {'send_to': 'AW-10827456865/syOLCMarzKYDEOHC96oo', 'event_callback': callback});
             return false;
           }
+          function gtag_report_conversion_compra(url, transactionId) {
+            var callback = function () {
+              if (typeof(url) != 'undefined') { window.location = url; }
+            };
+            gtag('event', 'conversion', {'send_to': 'AW-10827456865/D5UlCPb3ofIcEOHC96oo', 'transaction_id': transactionId || '', 'event_callback': callback});
+            return false;
+          }
         `}} />
       </head>
       <body className="min-h-full">{children}</body>
