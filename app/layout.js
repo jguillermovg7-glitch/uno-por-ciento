@@ -9,10 +9,18 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="es">
-     <head>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-</head>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+        {/* Google Ads / GA4 */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10827456865"></script>
+        <script dangerouslySetInnerHTML={{ __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'AW-10827456865');
+        `}} />
+      </head>
       <body className="min-h-full">{children}</body>
     </html>
   );
