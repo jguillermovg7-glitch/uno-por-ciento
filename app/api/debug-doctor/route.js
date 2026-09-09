@@ -9,13 +9,13 @@ const supabaseAdmin = createClient(
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const email = searchParams.get("email");
+  const apply = searchParams.get("apply") === "1";
   if (!email) {
     return NextResponse.json({ error: "Falta ?email=" }, { status: 400 });
   }
 
   const resultado = { email, pasos: [] };
 
-  // Paso 1: buscar en doctores por email
   const { data: existing, error: selectError } = await supabaseAdmin
     .from("doctores")
     .select("user_id, email, estado, stripe_subscription_id")
@@ -28,32 +28,22 @@ export async function GET(request) {
     selectError: selectError?.message || null,
   });
 
-  // Paso 2: intentar crear usuario (esto va a fallar si ya existe, es esperado)
-  const { data: created, error: createError } = await supabaseAdmin.auth.admin.createUser({
-    email,
-    email_confirm: true,
-  });
+  if (apply && existing?.user_id) {
+    const { data: upsertData, error: upsertError } = await supabaseAdmin
+      .from("doctores")
+      .upsert({
+        user_id: existing.user_id,
+        email,
+        estado: "pago_confirmado_TEST",
+      }, { onConflict: "user_id" })
+      .select();
 
-  resultado.pasos.push({
-    paso: "createUser",
-    created: created?.user?.id || null,
-    createError: createError?.message || null,
-    createErrorStatus: createError?.status || null,
-  });
-
-  // Paso 3: si falló, buscar por listUsers
-  if (createError) {
-    let encontrado = null;
-    const { data: listData, error: listError } = await supabaseAdmin.auth.admin.listUsers({ page: 1, perPage: 200 });
-    if (listData) {
-      const match = listData.users.find((u) => u.email?.toLowerCase() === email.toLowerCase());
-      encontrado = match?.id || null;
-    }
     resultado.pasos.push({
-      paso: "listUsers fallback",
-      encontrado,
-      listError: listError?.message || null,
-      totalUsuarios: listData?.users?.length || 0,
+      paso: "upsert de prueba",
+      upsertData,
+      upsertError: upsertError?.message || null,
+      upsertErrorCode: upsertError?.code || null,
+      upsertErrorDetails: upsertError?.details || null,
     });
   }
 
