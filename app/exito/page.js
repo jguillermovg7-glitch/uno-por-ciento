@@ -28,6 +28,9 @@ function ExitoContent() {
         'transaction_id': sessionId || '',
       });
     }
+    if (typeof window !== "undefined" && window.fbq) {
+      window.fbq('track', 'Purchase', {}, { eventID: sessionId || undefined });
+    }
   }, []);
 
   const ink = "#0B1418";
