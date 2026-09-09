@@ -96,6 +96,10 @@ export default function OnboardingPage() {
       return;
     }
 
+    if (!isEditing && typeof window !== "undefined" && window.fbq) {
+      window.fbq("track", "Lead");
+    }
+
     const planesLandingB = ["starter", "pro", "superior"];
 
     if (planesLandingB.includes(plan)) {
