@@ -50,8 +50,7 @@ function ExitoContent() {
         }
 
         const { error } = await supabase.auth.verifyOtp({
-          email: data.email,
-          token: data.hashed_token,
+          token_hash: data.hashed_token,
           type: "magiclink",
         });
 
