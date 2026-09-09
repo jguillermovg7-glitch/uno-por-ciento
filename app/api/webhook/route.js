@@ -24,8 +24,10 @@ export async function POST(request) {
     const session = event.data.object;
     const userId = session.metadata?.userId;
     const plan = session.metadata?.plan;
+    const email = session.customer_details?.email || session.customer_email;
 
     if (userId) {
+      // Flujo viejo: ya existía cuenta y perfil, solo actualizamos.
       await supabaseAdmin
         .from("doctores")
         .update({
@@ -35,6 +37,44 @@ export async function POST(request) {
           stripe_subscription_id: session.subscription,
         })
         .eq("user_id", userId);
+    } else if (email) {
+      // Flujo nuevo: pago primero, cuenta después. La creamos aquí mismo.
+      let newUserId = null;
+
+      const { data: existing } = await supabaseAdmin
+        .from("doctores")
+        .select("user_id")
+        .eq("email", email)
+        .maybeSingle();
+
+      if (existing?.user_id) {
+        newUserId = existing.user_id;
+      } else {
+        const { data: created, error: createError } = await supabaseAdmin.auth.admin.createUser({
+          email,
+          email_confirm: true,
+        });
+        if (createError) {
+          console.error("Error creando usuario post-pago:", createError.message);
+        } else {
+          newUserId = created.user.id;
+        }
+      }
+
+      if (newUserId) {
+        await supabaseAdmin
+          .from("doctores")
+          .upsert({
+            user_id: newUserId,
+            email,
+            plan: plan,
+            plan_type: plan,
+            estado: "pago_confirmado",
+            stripe_customer_id: session.customer,
+            stripe_subscription_id: session.subscription,
+            stripe_session_id: session.id,
+          }, { onConflict: "user_id" });
+      }
     }
   }
 

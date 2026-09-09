@@ -89,13 +89,6 @@ function PlanesB() {
     init();
   }, []);
 
-  // Si viene con ?plan= y ya está autenticado con doctor, ir directo al checkout
-  useEffect(() => {
-    if (!loading && planParam && user && doctor) {
-      handleSelectPlan(planParam);
-    }
-  }, [loading, planParam, user, doctor]);
-
   async function handleSelectPlan(plan) {
     if (!PLANES[plan]) return;
     setProcesando(plan);
@@ -104,26 +97,12 @@ function PlanesB() {
       window.fbq("track", "InitiateCheckout", { content_name: plan });
     }
 
-    if (!user) {
-      // No autenticado → guardar plan y mandar a login
-      localStorage.setItem("plan_seleccionado", plan);
-      router.push(`/login?next=/planes-b?plan=${plan}`);
-      return;
-    }
-
-    if (!doctor) {
-      // Sin perfil → guardar plan y mandar a onboarding
-      localStorage.setItem("plan_seleccionado", plan);
-      router.push("/onboarding");
-      return;
-    }
-
-    // Tiene usuario y doctor → ir directo a checkout
+    // Pago primero, cuenta después: va directo a checkout sin requerir login.
     try {
       const res = await fetch("/api/create-checkout-session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ plan, email: user.email, userId: user.id }),
+        body: JSON.stringify({ plan }),
       });
       const data = await res.json();
       if (data.url) {

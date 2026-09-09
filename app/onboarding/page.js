@@ -46,8 +46,8 @@ export default function OnboardingPage() {
         .eq("user_id", data.user.id)
         .single();
 
-      if (doctor) {
-        // Ya existe — es EDICIÓN
+      if (doctor && doctor.estado === "formulario_completo") {
+        // Ya llenó el formulario antes — es EDICIÓN de verdad
         setIsEditing(true);
         setPlan(doctor.plan);
         setForm({
