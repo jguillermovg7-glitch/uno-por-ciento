@@ -272,10 +272,37 @@ function PlanesB() {
           ))}
         </div>
 
-        <p style={{ textAlign: "center", fontSize: "13px", color: "#8a9a9a", maxWidth: "560px", margin: "24px auto 0", lineHeight: 1.6 }}>
+        <div style={{ textAlign: "center", maxWidth: "560px", margin: "40px auto 0", padding: "20px 24px", background: tealSoft, borderRadius: "16px" }}>
+          <p style={{ fontSize: "14px", fontWeight: 700, color: ink, marginBottom: "4px" }}>
+            No quedas solo con el pago.
+          </p>
+          <p style={{ fontSize: "13.5px", color: "#5a6a6a", lineHeight: 1.6 }}>
+            Al activar tu plan, te contactamos en menos de 24 horas para configurar todo contigo paso a paso.
+          </p>
+        </div>
+
+        <p style={{ textAlign: "center", fontSize: "13px", color: "#8a9a9a", maxWidth: "560px", margin: "16px auto 0", lineHeight: 1.6 }}>
           La inversión en anuncios (pauta) va directo a Meta o Google — no a nosotros. Tú controlas cuánto gastas.
         </p>
       </div>
+
+      
+        href="https://wa.me/524441905298?text=Hola%2C%20tengo%20una%20duda%20sobre%20los%20planes%20de%20Uno%20por%20Ciento"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          position: "fixed", bottom: "24px", right: "24px", zIndex: 50,
+          width: "58px", height: "58px", borderRadius: "50%",
+          background: "#25D366", display: "flex", alignItems: "center", justifyContent: "center",
+          boxShadow: "0 4px 16px rgba(0,0,0,.25)",
+        }}
+        aria-label="Escríbenos por WhatsApp"
+      >
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff">
+          <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m0 1.67a8.23 8.23 0 0 1 5.83 2.42 8.19 8.19 0 0 1 2.41 5.82c0 4.55-3.7 8.25-8.25 8.25-1.4 0-2.77-.35-4-1.02l-.29-.17-2.98.78.8-2.9-.19-.3a8.2 8.2 0 0 1-1.26-4.4c0-4.55 3.7-8.24 8.25-8.24z"/>
+          <path d="M9.1 6.87c-.18-.4-.37-.41-.54-.41-.14 0-.3-.02-.46-.02s-.42.06-.64.3c-.22.24-.85.83-.85 2.03s.87 2.36 1 2.53c.12.16 1.68 2.68 4.15 3.66 2.05.81 2.47.65 2.92.61.45-.04 1.44-.59 1.64-1.15.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28-.24-.12-1.44-.71-1.66-.79-.22-.08-.38-.12-.54.12-.16.24-.62.79-.76.95-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.95-1.2-.72-.64-1.2-1.44-1.35-1.68-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.53-1.34-.75-1.83z"/>
+        </svg>
+      </a>
 
       <style>{`
         @media(max-width:820px){
