@@ -287,6 +287,7 @@ function PlanesB() {
       </div>
 
       
+      <a
         href="https://wa.me/524441905298?text=Hola%2C%20tengo%20una%20duda%20sobre%20los%20planes%20de%20Uno%20por%20Ciento"
         target="_blank"
         rel="noopener noreferrer"
