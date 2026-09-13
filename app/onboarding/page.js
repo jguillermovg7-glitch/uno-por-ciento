@@ -118,24 +118,30 @@ export default function OnboardingPage() {
 
     if (planesLandingB.includes(plan)) {
       try {
-        const res = await fetch("/api/create-checkout-session", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ plan, email: user.email, userId: user.id }),
-        });
-        const data = await res.json();
-        if (data.url) {
-          window.location.href = data.url;
-        } else {
-          alert("Error al crear la sesión de pago.");
-        }
-      } catch (e) {
-        alert("Error de conexión al iniciar el pago.");
-      }
-    } else {
-      router.push("/preview");
-    }
+  const res = await fetch("/api/create-checkout-session", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ plan, email: user.email, userId: user.id }),
+  });
+  
+  if (!res.ok) {
+    const text = await res.text();
+    alert("Error del servidor (" + res.status + "): " + text);
+    setSaving(false);
+    return;
   }
+
+  const data = await res.json();
+  if (data.url) {
+    window.location.href = data.url;
+  } else {
+    alert("Error: no se recibió URL de pago. Respuesta: " + JSON.stringify(data));
+    setSaving(false);
+  }
+} catch (e) {
+  alert("Error de conexión: " + e.message + " | Plan: " + plan + " | Email: " + user.email);
+  setSaving(false);
+}
 
   const ink = "#0B1418";
   const teal = "#0E7C7B";
