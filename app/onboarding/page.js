@@ -142,6 +142,10 @@ export default function OnboardingPage() {
   alert("Error de conexión: " + e.message + " | Plan: " + plan + " | Email: " + user.email);
   setSaving(false);
 }
+    } else {
+      router.push("/preview");
+    }
+  }
 
   const ink = "#0B1418";
   const teal = "#0E7C7B";
