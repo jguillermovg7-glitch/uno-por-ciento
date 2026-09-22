@@ -1,5 +1,5 @@
-import fs from "fs";
-import path from "path";
+import { readFileSync } from "fs";
+import { join } from "path";
 
 export const metadata = {
   title: "Uno por Ciento — Anuncios para tu consultorio, por suscripción",
@@ -7,18 +7,14 @@ export const metadata = {
 };
 
 export default function LpSistema() {
-  const html = fs.readFileSync(
-    path.join(process.cwd(), "app/lp-sistema/page.html"),
-    "utf-8"
-  );
-  // Extraer solo el body para evitar conflictos con el layout de Next.js
-  const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
-  const body = bodyMatch ? bodyMatch[1] : html;
+  const html = readFileSync(join(process.cwd(), "public/lp-sistema.html"), "utf-8");
+  const bodyContent = html.replace(/[\s\S]*<body[^>]*>([\s\S]*)<\/body>[\s\S]*/i, "$1");
+  const styleContent = html.match(/<style>([\s\S]*?)<\/style>/i)?.[1] || "";
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: html.match(/<style>([\s\S]*?)<\/style>/)?.[1] || "" }} />
-      <div dangerouslySetInnerHTML={{ __html: body }} />
+      <style dangerouslySetInnerHTML={{ __html: styleContent }} />
+      <div dangerouslySetInnerHTML={{ __html: bodyContent }} />
     </>
   );
 }
