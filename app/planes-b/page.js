@@ -97,6 +97,10 @@ function PlanesB() {
       window.fbq("track", "InitiateCheckout", { content_name: plan });
     }
 
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", "conversion", { "send_to": "AW-11059085854/zKp_CIbomKAYEJ6EsZkp" });
+    }
+
     // Pago primero, cuenta después: va directo a checkout sin requerir login.
     try {
       const res = await fetch("/api/create-checkout-session", {

@@ -17,6 +17,14 @@ function ExitoContent() {
         'send_to': 'AW-18421386124/8qGzCNGYo_IcEIyXgNBE',
         'transaction_id': sessionId || '',
       });
+      window.gtag('event', 'conversion', {
+        'send_to': 'AW-11059085854/ZdMVCIL6jqAYEJ6EsZkp',
+        'transaction_id': sessionId || '',
+      });
+      window.gtag('event', 'conversion', {
+        'send_to': 'AW-11059085854/na8kCNWKvKAYEJ6EsZkp',
+        'transaction_id': sessionId || '',
+      });
     }
     if (typeof window !== "undefined" && window.fbq) {
       window.fbq('track', 'Purchase', {}, { eventID: sessionId || undefined });

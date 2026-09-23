@@ -305,7 +305,7 @@ function AgendarForm() {
                 <a
                   href={`https://wa.me/52${doctor.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(`Hola, soy ${pacienteNombre}. Acabo de agendar una cita de ${servicioSeleccionado.nombre} el ${new Date(horaSeleccionada).toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long", timeZone: "America/Mexico_City" })} a las ${new Date(horaSeleccionada).toLocaleTimeString("es-MX", { hour: "numeric", minute: "2-digit", hour12: true, timeZone: "America/Mexico_City" })}. ¡Confirmo mi asistencia!`)}`}
                   target="_blank"
-                  onClick={() => { if (typeof window !== "undefined" && window.fbq) window.fbq("track", "Contact"); }}
+                  onClick={() => { if (typeof window !== "undefined" && window.fbq) window.fbq("track", "Contact"); if (typeof window !== "undefined" && window.gtag) window.gtag("event", "conversion", { "send_to": ["AW-11059085854/W3ViCLuljqAYEJ6EsZkp", "AW-11059085854/_WToCKy4kqAYEJ6EsZkp"] }); }}
                   rel="noopener noreferrer"
                   style={{ backgroundColor: "#25D366", color: "#fff" }}
                   className="inline-flex items-center gap-2 rounded-lg px-6 py-3 text-sm font-medium no-underline"

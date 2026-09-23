@@ -558,7 +558,7 @@ footer{padding:28px 24px 100px;text-align:center;border-top:1px solid var(--line
 /* Evento de analítica al clic de WhatsApp */
 (function(){
   var w=document.getElementById('wa-cta');
-  if(w) w.addEventListener('click',function(){ if(window.gtag) gtag('event','contact',{method:'whatsapp'}); if(window.fbq) fbq('track','Contact'); });
+  if(w) w.addEventListener('click',function(){ if(window.gtag) gtag('event','contact',{method:'whatsapp'}); if(window.gtag) gtag('event','conversion',{'send_to':['AW-11059085854/W3ViCLuljqAYEJ6EsZkp','AW-11059085854/_WToCKy4kqAYEJ6EsZkp']}); if(window.fbq) fbq('track','Contact'); });
 })();
 </script>
 </body>
