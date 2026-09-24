@@ -17,17 +17,25 @@ function ExitoContent() {
         'send_to': 'AW-18421386124/8qGzCNGYo_IcEIyXgNBE',
         'transaction_id': sessionId || '',
       });
-      window.gtag('event', 'conversion', {
-        'send_to': 'AW-11059085854/ZdMVCIL6jqAYEJ6EsZkp',
-        'transaction_id': sessionId || '',
-      });
-      window.gtag('event', 'conversion', {
-        'send_to': 'AW-11059085854/na8kCNWKvKAYEJ6EsZkp',
-        'transaction_id': sessionId || '',
-      });
     }
     if (typeof window !== "undefined" && window.fbq) {
       window.fbq('track', 'Purchase', {}, { eventID: sessionId || undefined });
+    }
+
+    if (sessionId) {
+      fetch(`/api/session-info?session_id=${encodeURIComponent(sessionId)}`)
+        .then((r) => r.json())
+        .then((info) => {
+          if (typeof window !== "undefined" && window.gtag && info && !info.error) {
+            window.gtag('event', 'conversion', {
+              'send_to': 'AW-11059085854/3alWCKyO74MdEJ6EsZkp',
+              'value': (info.amount_total || 0) / 100,
+              'currency': info.currency || 'MXN',
+              'transaction_id': sessionId,
+            });
+          }
+        })
+        .catch((e) => console.error("Error reportando conversión de Compra a Google Ads:", e));
     }
 
     async function completarAcceso() {
