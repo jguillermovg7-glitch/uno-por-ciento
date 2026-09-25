@@ -21,13 +21,15 @@ async function buscarUserIdPorEmail(email) {
   return null;
 }
 
-async function guardarTrace(email, trace) {
-  if (!email) return;
+async function guardarTrace(email, sessionId, trace) {
   try {
     await supabaseAdmin
-      .from("doctores")
-      .update({ debug_log: trace.join(" | ").slice(0, 8000) })
-      .eq("email", email);
+      .from("webhook_logs")
+      .insert({
+        email: email || null,
+        session_id: sessionId || null,
+        trace: trace.join(" | ").slice(0, 8000),
+      });
   } catch (e) {
     console.error("No se pudo guardar trace:", e.message);
   }
@@ -47,10 +49,11 @@ export async function POST(request) {
   const trace = [];
   trace.push(`inicio: ${event.type} @ ${new Date().toISOString()}`);
   let emailParaLog = null;
+  let session;
 
   try {
     if (event.type === "checkout.session.completed") {
-      const session = event.data.object;
+      session = event.data.object;
       const userId = session.metadata?.userId;
       const plan = session.metadata?.plan;
       const email = session.customer_details?.email || session.customer_email;
@@ -139,7 +142,7 @@ export async function POST(request) {
   } catch (err) {
     trace.push(`EXCEPCION: ${err.message} | stack: ${err.stack?.slice(0, 500)}`);
   } finally {
-    await guardarTrace(emailParaLog, trace);
+    await guardarTrace(emailParaLog, session?.id || null, trace);
   }
 
   return NextResponse.json({ received: true });
