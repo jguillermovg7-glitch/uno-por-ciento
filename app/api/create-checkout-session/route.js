@@ -70,6 +70,20 @@ export async function POST(request) {
       ];
       sessionConfig.subscription_data = { metadata: { userId: userId || "", plan } };
 
+    } else if (plan === "business_esencial") {
+      sessionConfig.mode = "subscription";
+      sessionConfig.line_items = [
+        { price: process.env.STRIPE_PRICE_BUSINESS_ESENCIAL, quantity: 1 },
+      ];
+      sessionConfig.subscription_data = { metadata: { userId: userId || "", plan } };
+
+    } else if (plan === "business_pro") {
+      sessionConfig.mode = "subscription";
+      sessionConfig.line_items = [
+        { price: process.env.STRIPE_PRICE_BUSINESS_PRO, quantity: 1 },
+      ];
+      sessionConfig.subscription_data = { metadata: { userId: userId || "", plan } };
+
     } else {
       return NextResponse.json({ error: "Plan inválido" }, { status: 400 });
     }
