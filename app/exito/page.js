@@ -39,11 +39,27 @@ function ExitoContent() {
     }
 
     async function completarAcceso() {
-      // Si ya hay sesión (flujo viejo: login antes de pagar), no hace falta nada más.
+      // Si ya hay sesión (login antes de pagar, o cliente recurrente comprando otro plan)
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
+        let doctorData = null;
+        for (let i = 0; i < 5; i++) {
+          const { data } = await supabase
+            .from("doctores")
+            .select("estado")
+            .eq("user_id", user.id)
+            .maybeSingle();
+          doctorData = data;
+          if (data && data.estado === "pago_confirmado") break;
+          await new Promise((r) => setTimeout(r, 1500));
+        }
+
         setStatus("listo");
-        router.push("/dashboard");
+        if (doctorData && doctorData.estado !== "activo") {
+          router.push("/onboarding");
+        } else {
+          router.push("/dashboard");
+        }
         return;
       }
 
