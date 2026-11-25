@@ -177,6 +177,9 @@ export default function OnboardingPage() {
             plan === "starter" ? "Campaña en Facebook Ads" :
             plan === "pro" ? "Google Ads + Landing" :
             plan === "superior" ? "Plan Superior" :
+            plan === "business_esencial" ? "Esencial · Perfil de Google" :
+            plan === "business_pro" ? "Pro · Perfil de Google" :
+            plan === "business_boost" ? "Boost · Perfil de Google + SEO" :
             "Tu plan"
           }
         </p>
@@ -186,6 +189,8 @@ export default function OnboardingPage() {
         <p style={{ color: ink, opacity: 0.6 }} className="text-center text-sm mb-10">
           {isEditing 
             ? "Actualiza los datos que necesites cambiar."
+            : plan.startsWith("business_")
+            ? "Con esto conectamos tu perfil de Google y personalizamos tus respuestas. Tarda menos de 5 minutos."
             : `Con esto armamos tu ${plan === "sitio" ? "sitio" : plan === "combo" ? "sitio y campaña" : "campaña"}. Tarda menos de 5 minutos.`
           }
         </p>

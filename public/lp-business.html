@@ -232,8 +232,8 @@ h3{font-size:17px;font-weight:700;letter-spacing:-.2px;margin-bottom:8px;color:v
 .steps-note strong{color:#fff;}
 
 .plans-section{background:var(--surface);}
-.plans-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:800px;margin:48px auto 0;align-items:stretch;}
-@media(max-width:700px){.plans-grid{grid-template-columns:1fr;max-width:420px;}}
+.plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:48px auto 0;align-items:stretch;}
+@media(max-width:900px){.plans-grid{grid-template-columns:1fr;max-width:420px;}}
 .plan{border:1px solid var(--line);border-radius:24px;padding:36px 30px;background:var(--paper);display:flex;flex-direction:column;position:relative;box-shadow:0 1px 2px rgba(0,0,0,.03),0 20px 40px rgba(0,0,0,.05);transition:transform .25s ease,box-shadow .25s ease;}
 .plan:hover{transform:translateY(-3px);box-shadow:0 1px 2px rgba(0,0,0,.04),0 28px 56px rgba(0,0,0,.09);}
 .plan.best{background:var(--panel);border-color:var(--panel-line);box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 24px 56px rgba(14,124,123,.18);}
@@ -481,7 +481,7 @@ footer{padding:28px 24px 100px;text-align:center;font-size:12.5px;color:var(--so
     <div class="center" style="margin-bottom:8px;">
       <p class="eyebrow">Precio en México</p>
       <h2>¿Cuánto cuesta 1% al mes?</h2>
-      <p class="answer center">Dos planes, cancela cuando quieras. Doctoralia cobra entre $1,350 y $2,370 MXN al mes por un paquete mucho más amplio (agenda, pagos, telemedicina). 1% cuesta menos porque resuelve un solo problema, muy bien.</p>
+      <p class="answer center">Tres planes, cancela cuando quieras. Doctoralia cobra entre $1,350 y $2,370 MXN al mes por un paquete mucho más amplio (agenda, pagos, telemedicina). 1% cuesta menos porque resuelve un solo problema, muy bien.</p>
     </div>
     <div class="plans-grid">
       <div class="plan">
@@ -507,6 +507,17 @@ footer{padding:28px 24px 100px;text-align:center;font-size:12.5px;color:var(--so
           <li>Reporte mensual de contactos nuevos (llamadas, mensajes y visitas)</li>
         </ul>
         <button type="button" class="plan-btn plan-btn-white" id="plan-pro-btn">Empezar con Pro</button>
+      </div>
+      <div class="plan">
+        <div class="plan-scope">Para crecer en Google</div>
+        <div class="plan-name">Boost</div>
+        <div class="plan-price">$1,999<span style="font-size:14px;font-weight:500;color:var(--soft);">/mes</span></div>
+        <ul class="plan-list">
+          <li>Todo lo de Pro</li>
+          <li>Artículos mensuales optimizados para SEO y para buscadores de IA</li>
+          <li>Posicionamiento de tu especialidad en tu ciudad</li>
+        </ul>
+        <button type="button" class="plan-btn plan-btn-fill" id="plan-boost-btn">Empezar con Boost</button>
       </div>
     </div>
     <p class="plans-note">Cancelas cuando quieras, sin contrato forzoso. Al elegir un plan vas directo a pagar de forma segura con Stripe.</p>
@@ -653,8 +664,10 @@ footer{padding:28px 24px 100px;text-align:center;font-size:12.5px;color:var(--so
   }
   var e1 = document.getElementById('plan-esencial-btn');
   var e2 = document.getElementById('plan-pro-btn');
+  var e3 = document.getElementById('plan-boost-btn');
   if(e1) e1.addEventListener('click', function(){ iniciarCheckout(e1,'business_esencial'); });
   if(e2) e2.addEventListener('click', function(){ iniciarCheckout(e2,'business_pro'); });
+  if(e3) e3.addEventListener('click', function(){ iniciarCheckout(e3,'business_boost'); });
 })();
 </script>
 </body>

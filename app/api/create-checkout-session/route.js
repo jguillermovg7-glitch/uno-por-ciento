@@ -9,11 +9,12 @@ export async function POST(request) {
 
     const origin = request.headers.get("origin");
     const planesLandingB = ["starter", "pro", "superior"];
+    const planesBusiness = ["business_esencial", "business_pro", "business_boost"];
     let sessionConfig = {
       payment_method_types: ["card"],
       metadata: { userId: userId || "", plan },
       success_url: `${origin}/exito?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: planesLandingB.includes(plan) ? `${origin}/planes-b` : `${origin}/preview`,
+      cancel_url: planesLandingB.includes(plan) ? `${origin}/planes-b` : planesBusiness.includes(plan) ? `${origin}/lp-business#precio` : `${origin}/preview`,
       allow_promotion_codes: true,
     };
 
@@ -81,6 +82,13 @@ export async function POST(request) {
       sessionConfig.mode = "subscription";
       sessionConfig.line_items = [
         { price: process.env.STRIPE_PRICE_BUSINESS_PRO, quantity: 1 },
+      ];
+      sessionConfig.subscription_data = { metadata: { userId: userId || "", plan } };
+
+    } else if (plan === "business_boost") {
+      sessionConfig.mode = "subscription";
+      sessionConfig.line_items = [
+        { price: process.env.STRIPE_PRICE_BUSINESS_BOOST, quantity: 1 },
       ];
       sessionConfig.subscription_data = { metadata: { userId: userId || "", plan } };
 
