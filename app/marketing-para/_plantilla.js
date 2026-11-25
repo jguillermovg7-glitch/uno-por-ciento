@@ -1,8 +1,10 @@
 import Link from "next/link";
 import "../home.css";
+import "./marketing.css";
+import { PlanCards, Chips, FlotanteWA } from "./_bloques";
 import { URL_BASE, DEMO, wa, planes } from "./_datos";
 
-const th = { textAlign: "left", padding: "12px 14px", borderBottom: "2px solid #0E7C7B" };
+const th = { textAlign: "left", padding: "12px 14px", borderBottom: "2px solid #016062" };
 const td = { padding: "12px 14px", borderBottom: "1px solid #e3e8ea", verticalAlign: "top" };
 
 export default function Plantilla({ cfg }) {
@@ -46,7 +48,7 @@ export default function Plantilla({ cfg }) {
   };
 
   return (
-    <>
+    <div className="mk">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <header>
@@ -70,6 +72,7 @@ export default function Plantilla({ cfg }) {
             <a className="btn-primary" href={WA}>Escribir por WhatsApp →</a>
             <a className="btn-secondary" href="/planes-b">Ver planes →</a>
           </div>
+          <Chips />
         </div>
       </section>
 
@@ -90,28 +93,13 @@ export default function Plantilla({ cfg }) {
             <h2 className="section-title">Cuánto cuesta: precios a la vista</h2>
             <p className="section-sub">Pagas la suscripción cada mes. La inversión en anuncios se paga aparte, directo a Facebook o Google; recomendamos desde $100 al día, unos $3,000 al mes.</p>
           </div>
-          <div style={{ overflowX: "auto" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 520 }}>
-              <thead>
-                <tr><th style={th}>Plan</th><th style={th}>Al mes</th><th style={th}>Qué incluye</th></tr>
-              </thead>
-              <tbody>
-                {planes.map((p) => (
-                  <tr key={p.nombre}>
-                    <td style={{ ...td, fontWeight: 700 }}>{p.nombre}</td>
-                    <td style={td}>{"$" + p.precio.toLocaleString("en-US")}</td>
-                    <td style={td}>{p.incluye}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <PlanCards planes={planes} href="/planes-b" />
         </div>
       </section>
 
       <section>
         <div className="container">
-          <div className="section-head">
+          <div className="section-head mk-cuenta">
             <div className="section-eyebrow">La cuenta</div>
             <h2 className="section-title">¿Cuántos pacientes necesitas para cubrirlo?</h2>
             <p className="section-sub">{cfg.cuenta}</p>
@@ -143,10 +131,12 @@ export default function Plantilla({ cfg }) {
         </div>
       </section>
 
+      <FlotanteWA href={WA} />
+
       <footer style={{ textAlign: "center", padding: "32px 16px", fontSize: 14 }}>
         <p>Uno por Ciento · Marketing para doctores en México</p>
         <p><a href="/privacidad">Privacidad</a> · <a href="/terminos">Términos</a></p>
       </footer>
-    </>
+    </div>
   );
 }
