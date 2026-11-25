@@ -2,6 +2,7 @@ import { readFileSync } from "fs";
 import { join } from "path";
 
 export const metadata = {
+  robots: { index: false, follow: true },
   title: "Uno por Ciento — Anuncios para tu consultorio, por suscripción",
   description: "Suscripción para médicos en México. La IA arma y ajusta tus anuncios en Google y Facebook todos los días. Desde $699 al mes, cancela en un clic.",
 };

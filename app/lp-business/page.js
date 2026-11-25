@@ -2,6 +2,7 @@ import { readFileSync } from "fs";
 import { join } from "path";
 
 export const metadata = {
+  robots: { index: false, follow: true },
   title: "1% — Consigue pacientes nuevos sin pagar anuncios",
   description: "1% conecta tu perfil de Google Business y una IA se encarga de tus reseñas, tus publicaciones y tus preguntas todos los días. No es una agencia. Desde $599 al mes en México.",
 };
