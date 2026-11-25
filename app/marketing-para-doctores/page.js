@@ -215,6 +215,7 @@ export default function MarketingParaDoctores() {
             <div className="section-eyebrow">Especialidades</div>
             <h2 className="section-title">Marketing médico para cada especialidad</h2>
             <p className="section-sub">Trabajamos con psicólogos, dentistas, cirujanos, ginecólogos, médicos estéticos, fisioterapeutas y gastroenterólogos, con sitios publicados en Ciudad de México, Guadalajara, Querétaro, Mérida y Tijuana. Cada especialidad tiene un mensaje distinto: lo ajustamos a lo que tus pacientes buscan.</p>
+            <p className="section-sub"><Link href="/marketing-para/dentistas">Marketing para dentistas</Link> · <Link href="/marketing-para/psicologos">Marketing para psicólogos</Link></p>
           </div>
         </div>
       </section>
