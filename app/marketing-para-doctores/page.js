@@ -22,7 +22,7 @@ export const metadata = {
 
 const planes = [
   { nombre: "Starter", precio: 699, incluye: "Anuncios en Facebook e Instagram." },
-  { nombre: "Pro", precio: 999, incluye: "Anuncios en Google y una página con botón de WhatsApp. Si no tienes cuenta de Google Ads, la creamos nosotros." },
+  { nombre: "Pro", precio: 999, incluye: "Anuncios en Google y Facebook, y una página con botón de WhatsApp. Si no tienes cuenta de Google Ads, la creamos nosotros." },
   { nombre: "Superior", precio: 1499, incluye: "Facebook, Google y tu sitio completo." },
 ];
 
